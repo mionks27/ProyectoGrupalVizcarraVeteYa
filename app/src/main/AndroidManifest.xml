@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/TemaPrincipal">
         <activity android:name=".ti.SolicitudesPendientes"></activity>
         <activity android:name=".ti.EditarDispositivo" />
         <activity android:name=".ti.AgregarDispositivo" />
