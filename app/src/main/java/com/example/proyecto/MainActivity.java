@@ -68,15 +68,15 @@ public class MainActivity extends AppCompatActivity {
             Log.d("info", uid + " " + name + " " + email);
 
         }
-//        else {
-//            Toast.makeText(this, "Se le ha enviado un correo para verificar su cuenta", Toast.LENGTH_SHORT);
-//            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Void> task) {
-//                    Log.d("emailVer", "Correo enviado");
-//                }
-//            });
-//        }
+        else {
+            Toast.makeText(this, "Se le ha enviado un correo para verificar su cuenta", Toast.LENGTH_SHORT).show();
+            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Log.d("emailVer", "Correo enviado");
+                }
+            });
+        }
     }
 
     public void logOut(View view){
