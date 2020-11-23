@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "817344360981",
+    "firebase_url": "https://proyecto-grupal.firebaseio.com",
+    "project_id": "proyecto-grupal",
+    "storage_bucket": "proyecto-grupal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817344360981:android:e2ec6aff1b271b2367541c",
+        "android_client_info": {
+          "package_name": "com.example.proyecto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817344360981-kef9kurrc327clj3ki9uk447f1j2hcgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.proyecto",
+            "certificate_hash": "8b896127403c57b50e1386ae8cd430bd8ad2315b"
+          }
+        },
+        {
+          "client_id": "817344360981-r8iatidurqvc3mfdvfl3p19e0jv9rcco.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPWgVSBiI01MmEjXeWwHM8xuBW6IWcZxQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817344360981-r8iatidurqvc3mfdvfl3p19e0jv9rcco.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
