@@ -57,26 +57,28 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void  validarUsuario(){
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (firebaseUser != null){
-            firebaseUser.reload();
-            String uid = firebaseUser.getUid();
-            String name = firebaseUser.getDisplayName();
-            String email = firebaseUser.getEmail();
-
-            Log.d("info", uid + " " + name + " " + email);
-
-        }
-        else {
-            Toast.makeText(this, "Se le ha enviado un correo para verificar su cuenta", Toast.LENGTH_SHORT).show();
-            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            firebaseUser.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Log.d("emailVer", "Correo enviado");
+                    if(firebaseUser.isEmailVerified()){
+                        Intent intent = new Intent(MainActivity.this, inicioSesion.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(MainActivity.this, "Se le ha enviado un correo para verificar su cuenta", Toast.LENGTH_SHORT).show();
+                        firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.d("emailVer", "Correo enviado");
+                            }
+                        });
+                    }
                 }
             });
         }
+
     }
 
     public void logOut(View view){
