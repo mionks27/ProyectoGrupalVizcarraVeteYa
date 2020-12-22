@@ -1,10 +1,12 @@
 package com.example.proyecto.Entity;
 
+import java.util.ArrayList;
+
 public class User {
     private String tipo;
     private String rol;
     private String codigo;
-    private DeviceUser[] listaDeSolicitudes;
+    private ArrayList<DeviceUser> listaDeSolicitudes;
 
     public String getTipo() {
         return tipo;
@@ -30,11 +32,12 @@ public class User {
         this.codigo = codigo;
     }
 
-    public DeviceUser[] getListaDeSolicitudes() {
+
+    public ArrayList<DeviceUser> getListaDeSolicitudes() {
         return listaDeSolicitudes;
     }
 
-    public void setListaDeSolicitudes(DeviceUser[] listaDeSolicitudes) {
+    public void setListaDeSolicitudes(ArrayList<DeviceUser> listaDeSolicitudes) {
         this.listaDeSolicitudes = listaDeSolicitudes;
     }
 }
