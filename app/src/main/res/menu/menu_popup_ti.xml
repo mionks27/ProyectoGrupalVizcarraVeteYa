@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/verSolicitudPrestamoTI"
+        android:title="Ver solicitudes de préstamo" />
+    <item
+        android:id="@+id/verPedidosTI"
+        android:title="Visualizar pedidos de préstamo" />
+    <item
+        android:id="@+id/gestionarDispositivosTI"
+        android:title="Gestionar dispositivos" />
+    <item
+        android:id="@+id/cerrarSesionTI"
+        android:title="Cerrar sesión" />
+</menu>
