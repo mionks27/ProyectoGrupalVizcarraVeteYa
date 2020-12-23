@@ -2,19 +2,38 @@ package com.example.proyecto.ti;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
 import com.example.proyecto.Cliente.PagPrincipalCliente;
+import com.example.proyecto.Entity.Device;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
+import com.example.proyecto.RecyclerAdapters.DevicesAdapter;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class PaginaPrincipalTI extends AppCompatActivity {
 
@@ -22,6 +41,7 @@ public class PaginaPrincipalTI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagina_principal_t_i);
+        listarDevices();
     }
 
 
@@ -91,6 +111,32 @@ public class PaginaPrincipalTI extends AppCompatActivity {
     }
 
 
+    public void listarDevices(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.child("Dispositivos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Device> deviceArrayList = new ArrayList<>();
+              for(DataSnapshot children : snapshot.getChildren()){
+                    Device device = children.getValue(Device.class);
+                    deviceArrayList.add(device);
+              }
+              if(!deviceArrayList.isEmpty()){
+                  DevicesAdapter adapter = new DevicesAdapter(deviceArrayList,PaginaPrincipalTI.this);
+                  RecyclerView recyclerView = findViewById(R.id.devicesRv);
+                  recyclerView.setAdapter(adapter);
+                  recyclerView.setLayoutManager(new LinearLayoutManager(PaginaPrincipalTI.this));
+              }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
 
 }

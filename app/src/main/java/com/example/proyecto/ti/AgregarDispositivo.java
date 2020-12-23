@@ -117,6 +117,7 @@ public class AgregarDispositivo extends AppCompatActivity {
                     String fileName = getFileName(uri);
                     TextView textView = findViewById(R.id.textViewFoto);
                     textView.setText(fileName);
+                    device.setNombreFoto(fileName);
                     textView.setVisibility(View.VISIBLE);
                 }
                 break;
@@ -134,10 +135,10 @@ public class AgregarDispositivo extends AppCompatActivity {
     }
 
     public void guardarFotoTomada(Bitmap bitmap){
-        String fileName = "prueba.jpg";
+        device.setNombreFoto("prueba.jpg");
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
             ContentValues contentValues = new ContentValues();
-            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
+            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, device.getNombreFoto());
             contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg");
             contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
             uri  = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
@@ -197,7 +198,7 @@ public class AgregarDispositivo extends AppCompatActivity {
                         if(textViewFoto.getVisibility()==View.VISIBLE){
                             subirArchivoConPutFile(textViewFoto.getText().toString());
                         }else{
-                            subirArchivoConPutFile("prueba.jpg");
+                            subirArchivoConPutFile(device.getNombreFoto());
                         }
 
                     }
@@ -225,7 +226,7 @@ public class AgregarDispositivo extends AppCompatActivity {
                     .setCustomMetadata("pk", device.getPk())
                     .build();
 
-            UploadTask task = storageReference.child(fileName).putFile(uri, storageMetadata);
+            UploadTask task = storageReference.child(device.getPk()+"/"+device.getNombreFoto()).putFile(uri, storageMetadata);
 
 
             task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

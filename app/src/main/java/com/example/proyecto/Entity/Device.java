@@ -1,12 +1,15 @@
 package com.example.proyecto.Entity;
 
-public class Device {
+import java.io.Serializable;
+
+public class Device implements Serializable {
     private String pk;
     private String tipo;
     private String marca;
     private String caracteristica;
     private String incluye;
     private int stock;
+    private String nombreFoto;
 
     public String getTipo() {
         return tipo;
@@ -54,5 +57,13 @@ public class Device {
 
     public void setPk(String pk) {
         this.pk = pk;
+    }
+
+    public String getNombreFoto() {
+        return nombreFoto;
+    }
+
+    public void setNombreFoto(String nombreFoto) {
+        this.nombreFoto = nombreFoto;
     }
 }
