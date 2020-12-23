@@ -3,12 +3,16 @@ package com.example.proyecto.ti;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.view.View;
 
+import com.example.proyecto.Cliente.PagPrincipalCliente;
+import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 
 public class PaginaPrincipalTI extends AppCompatActivity {
@@ -65,4 +69,10 @@ public class PaginaPrincipalTI extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void agregarDispositivo(View view){
+        Intent intent = new Intent(PaginaPrincipalTI.this, AgregarDispositivo.class);
+        startActivity(intent);
+    }
+
 }
