@@ -1,6 +1,7 @@
 package com.example.proyecto.Entity;
 
 public class Device {
+    private String pk;
     private String tipo;
     private String marca;
     private String caracteristica;
@@ -45,5 +46,13 @@ public class Device {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getPk() {
+        return pk;
+    }
+
+    public void setPk(String pk) {
+        this.pk = pk;
     }
 }
