@@ -3,13 +3,18 @@ package com.example.proyecto.Cliente;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
+import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
+import com.example.proyecto.ti.PaginaPrincipalTI;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class PagPrincipalCliente extends AppCompatActivity {
 
@@ -49,7 +54,7 @@ public class PagPrincipalCliente extends AppCompatActivity {
                                 ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
                                 return true;
                             case R.id.cerrarSesionCliente:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
+                                logOut();
                                 return true;
                             default:
                                 return false;
@@ -63,4 +68,19 @@ public class PagPrincipalCliente extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void logOut(){
+        AuthUI instance = AuthUI.getInstance();
+        instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // Lógica de cerrao de sesión lo pongo aquí porque luego lo ecesitaremos cuando acabemos el menú de cliente y TI
+                Intent intent = new Intent(PagPrincipalCliente.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
+
 }
