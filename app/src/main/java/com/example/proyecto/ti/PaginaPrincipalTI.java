@@ -42,12 +42,16 @@ public class PaginaPrincipalTI extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.verSolicitudPrestamoTI:
+                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
                                 return true;
                             case R.id.verPedidosTI:
+                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
                                 return true;
                             case R.id.gestionarDispositivosTI:
+                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
                                 return true;
                             case R.id.cerrarSesionTI:
+                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
                                 return true;
                             default:
                                 return false;
