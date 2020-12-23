@@ -91,16 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void logOut(View view){
-        AuthUI instance = AuthUI.getInstance();
-        instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-             // Lógica de cerrao de sesión lo pongo aquí porque luego lo ecesitaremos cuando acabemos el menú de cliente y TI
-            }
-        });
-    }
-
     public  void  validarRegistro(){
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -116,10 +106,12 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, PagPrincipalCliente.class);
                                 startActivity(intent);
                                 finish();
+                                Toast.makeText(MainActivity.this, "Inicio de Sesión Completado", Toast.LENGTH_SHORT).show();
                             }else{
                                 Intent intent = new Intent(MainActivity.this, PaginaPrincipalTI.class);
                                 startActivity(intent);
                                 finish();
+                                Toast.makeText(MainActivity.this, "Inicio de Sesión Completado", Toast.LENGTH_SHORT).show();
                             }
                         }
                 }else{

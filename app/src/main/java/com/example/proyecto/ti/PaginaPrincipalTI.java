@@ -10,7 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
+import com.example.proyecto.Cliente.PagPrincipalCliente;
+import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class PaginaPrincipalTI extends AppCompatActivity {
 
@@ -52,7 +56,7 @@ public class PaginaPrincipalTI extends AppCompatActivity {
                                 ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
                                 return true;
                             case R.id.cerrarSesionTI:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
+                                logOut();
                                 return true;
                             default:
                                 return false;
@@ -72,6 +76,19 @@ public class PaginaPrincipalTI extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void logOut(){
+        AuthUI instance = AuthUI.getInstance();
+        instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // Lógica de cerrao de sesión lo pongo aquí porque luego lo ecesitaremos cuando acabemos el menú de cliente y TI
+                Intent intent = new Intent(PaginaPrincipalTI.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
 
 
 
