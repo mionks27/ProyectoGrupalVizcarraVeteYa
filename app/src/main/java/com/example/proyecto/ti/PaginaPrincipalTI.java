@@ -9,10 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.view.View;
 
-import com.example.proyecto.Cliente.PagPrincipalCliente;
-import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 
 public class PaginaPrincipalTI extends AppCompatActivity {
@@ -37,8 +34,8 @@ public class PaginaPrincipalTI extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.abrirMenu:
-                View view = findViewById(R.id.abrirMenu);
+            case R.id.abrirMenuTI:
+                View view = findViewById(R.id.abrirMenuTI);
                 PopupMenu popupMenu = new PopupMenu(this, view);
                 popupMenu.getMenuInflater().inflate(R.menu.menu_popup_ti, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
