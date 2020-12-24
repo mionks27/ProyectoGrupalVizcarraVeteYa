@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,9 +41,11 @@ public class VerDetallesDispositivosCliente extends AppCompatActivity {
         textViewIncluye.setText(device.getIncluye());
         textViewStock.setText(String.valueOf(device.getStock()));
 
+    }
+
+    public void irAReservar(View view){
         Intent intentReserva = new Intent(VerDetallesDispositivosCliente.this,SolicitudReserva.class);
         intentReserva.putExtra("device",device);
         startActivity(intentReserva);
-
     }
 }
