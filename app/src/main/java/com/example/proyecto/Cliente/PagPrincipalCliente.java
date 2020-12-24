@@ -2,19 +2,33 @@ package com.example.proyecto.Cliente;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.PopupMenu;
 
+import com.example.proyecto.Entity.Device;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
+import com.example.proyecto.RecyclerAdapters.DevicesAdapter;
+import com.example.proyecto.RecyclerAdapters.DevicesAdapterCliente;
 import com.example.proyecto.ti.PaginaPrincipalTI;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class PagPrincipalCliente extends AppCompatActivity {
 
@@ -23,9 +37,14 @@ public class PagPrincipalCliente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag_principal_cliente);
     }
+
+
+    public void botonListarDisponiblesCliente(View view) {
+        listarDevices();
+
+    }
+
     ////relacionar layout menu cliente con este activity
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_cliente, menu);
@@ -43,7 +62,7 @@ public class PagPrincipalCliente extends AppCompatActivity {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
                             case R.id.verDispositivosDisponiblesCliente:
                                 ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
                                 return true;
@@ -69,7 +88,7 @@ public class PagPrincipalCliente extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void logOut(){
+    public void logOut() {
         AuthUI instance = AuthUI.getInstance();
         instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -83,4 +102,35 @@ public class PagPrincipalCliente extends AppCompatActivity {
 
     }
 
+    public void listarDevices() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.child("Dispositivos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Device> deviceArrayList = new ArrayList<>();
+                for (DataSnapshot children : snapshot.getChildren()) {
+                    Device device = children.getValue(Device.class);
+                    if (device.getStock() > 0) {
+                        deviceArrayList.add(device);
+                    } else {
+                        Log.d("infoApp", "Stock agotado del producto" + device.getTipo() + device.getMarca());
+                    }
+
+                }
+                if (!deviceArrayList.isEmpty()) {
+                    DevicesAdapterCliente adapter = new DevicesAdapterCliente(deviceArrayList, PagPrincipalCliente.this);
+                    RecyclerView recyclerView = findViewById(R.id.recyclerViewCliente);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(PagPrincipalCliente.this));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

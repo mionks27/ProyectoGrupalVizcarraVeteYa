@@ -15,5 +15,54 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.035" />
+
+    <Button
+        android:id="@+id/verDispoDisponiblesCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="botonListarDisponiblesCliente"
+        android:text="Ver Disp. Disponibles"
+        app:layout_constraintBottom_toTopOf="@+id/verHistCliente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.078"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.385" />
+
+    <Button
+        android:id="@+id/verSoliciCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ver Solicitudes"
+        app:layout_constraintBottom_toTopOf="@+id/verHistCliente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/verDispoDisponiblesCliente"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.385" />
+
+    <Button
+        android:id="@+id/verHistCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VER HISTORIAL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.135" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCliente"
+        android:layout_width="383dp"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verHistCliente"
+        app:layout_constraintVertical_bias="0.619" />
 </androidx.constraintlayout.widget.ConstraintLayout>
