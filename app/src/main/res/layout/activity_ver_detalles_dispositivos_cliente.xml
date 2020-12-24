@@ -6,4 +6,91 @@
     android:layout_height="match_parent"
     tools:context=".Cliente.VerDetallesDispositivosCliente">
 
+    <ImageView
+        android:id="@+id/imageViewDetalleFoto"
+        android:layout_width="344dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginBottom="135dp"
+        android:contentDescription="@string/uhmmm"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDetalleCaracteristica"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.099"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textViewDetalleTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="prueba1"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDetalleMarca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDetalleFoto" />
+
+    <TextView
+        android:id="@+id/textViewDetalleMarca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:text="prueba2"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDetalleCaracteristica"
+        app:layout_constraintStart_toStartOf="@+id/textViewDetalleTipo" />
+
+    <Button
+        android:id="@+id/buttonDetalleRegresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/regresar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDetalleReservar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonDetalleReservar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:text="@string/reservar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonDetalleRegresar"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDetalleFoto"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewDetalleCaracteristica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="236dp"
+        android:text="irteca3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewDetalleMarca"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDetalleFoto" />
+
+    <TextView
+        android:id="@+id/textViewDetalleIncluye"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="prueba4"
+        app:layout_constraintStart_toStartOf="@+id/textViewDetalleCaracteristica"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDetalleCaracteristica" />
+
+    <TextView
+        android:id="@+id/textViewDetalleStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:text="prueba5"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDetalleRegresar"
+        app:layout_constraintStart_toStartOf="@+id/textViewDetalleIncluye" />
 </androidx.constraintlayout.widget.ConstraintLayout>

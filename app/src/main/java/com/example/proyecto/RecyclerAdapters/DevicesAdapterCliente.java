@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.proyecto.Cliente.SolicitudReserva;
+import com.example.proyecto.Cliente.VerDetallesDispositivosCliente;
 import com.example.proyecto.Entity.Device;
 import com.example.proyecto.R;
 import com.example.proyecto.ti.EditarDispositivo;
@@ -22,7 +23,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCliente.DeviceViewHolder>{
+public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCliente.DeviceViewHolder> {
 
     private ArrayList<Device> listadeDispositivosCliente;
     private Context context;
@@ -35,8 +36,8 @@ public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCl
     @NonNull
     @Override
     public DeviceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.device_rv_cliente,parent,false);
-       DeviceViewHolder deviceViewHolder = new DeviceViewHolder(itemView);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.device_rv_cliente, parent, false);
+        DeviceViewHolder deviceViewHolder = new DeviceViewHolder(itemView);
         return deviceViewHolder;
     }
 
@@ -44,26 +45,19 @@ public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCl
     public void onBindViewHolder(@NonNull DeviceViewHolder holder, int position) {
         final Device device = listadeDispositivosCliente.get(position);
         StorageReference reference =
-                FirebaseStorage.getInstance().getReference().child(device.getPk()+"/"+device.getNombreFoto());
+                FirebaseStorage.getInstance().getReference().child(device.getPk() + "/" + device.getNombreFoto());
         Glide.with(context).load(reference).into(holder.imagen);
-        holder.tipo.setText("Tipo: "+device.getTipo()+" - Marca: "+device.getMarca());
-        holder.caracteristica.setText("Características: "+ device.getCaracteristica());
-        holder.reservar.setOnClickListener(new View.OnClickListener() {
+        holder.tipo.setText("Tipo: " + device.getTipo() + " - Marca: " + device.getMarca());
+        holder.caracteristica.setText("Características: " + device.getCaracteristica());
+        holder.verdetalle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, SolicitudReserva.class);
+            public void onClick(View view) {
+                Intent intent = new Intent(context, VerDetallesDispositivosCliente.class);
                 intent.putExtra("device", device);
                 context.startActivity(intent);
             }
         });
-        holder.verdetalle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
-
 
 
     @Override
@@ -71,19 +65,19 @@ public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCl
         return listadeDispositivosCliente.size();
     }
 
-    public static  class DeviceViewHolder extends RecyclerView.ViewHolder{
+    public static class DeviceViewHolder extends RecyclerView.ViewHolder {
         TextView tipo;
         TextView caracteristica;
         ImageView imagen;
         Button verdetalle;
-        Button reservar;
+
+
         public DeviceViewHolder(@NonNull View itemView) {
             super(itemView);
             tipo = itemView.findViewById(R.id.textViewTipoDispCliente);
             caracteristica = itemView.findViewById(R.id.textViewmarcaDispCliente);
             imagen = itemView.findViewById(R.id.imageViewDispCliente);
             verdetalle = itemView.findViewById(R.id.buttonVerDetalleDispCliente);
-            reservar = itemView.findViewById(R.id.buttonReservarDispCliente);
         }
     }
 
