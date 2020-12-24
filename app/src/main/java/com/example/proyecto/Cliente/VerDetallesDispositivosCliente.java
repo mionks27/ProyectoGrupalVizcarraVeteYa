@@ -38,7 +38,7 @@ public class VerDetallesDispositivosCliente extends AppCompatActivity {
         textViewMarca.setText(device.getMarca());
         textViewCaracteristica.setText(device.getCaracteristica());
         textViewIncluye.setText(device.getIncluye());
-        textViewStock.setText(device.getStock());
+        textViewStock.setText(String.valueOf(device.getStock()));
 
 
     }

@@ -23,7 +23,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCliente.DeviceViewHolder> {
+public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCliente.DeviceViewHolderCliente> {
 
     private ArrayList<Device> listadeDispositivosCliente;
     private Context context;
@@ -35,14 +35,14 @@ public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCl
 
     @NonNull
     @Override
-    public DeviceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DeviceViewHolderCliente onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.device_rv_cliente, parent, false);
-        DeviceViewHolder deviceViewHolder = new DeviceViewHolder(itemView);
+        DeviceViewHolderCliente deviceViewHolder = new DeviceViewHolderCliente(itemView);
         return deviceViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DeviceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DeviceViewHolderCliente holder, int position) {
         final Device device = listadeDispositivosCliente.get(position);
         StorageReference reference =
                 FirebaseStorage.getInstance().getReference().child(device.getPk() + "/" + device.getNombreFoto());
@@ -65,14 +65,14 @@ public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCl
         return listadeDispositivosCliente.size();
     }
 
-    public static class DeviceViewHolder extends RecyclerView.ViewHolder {
+    public static class DeviceViewHolderCliente extends RecyclerView.ViewHolder {
         TextView tipo;
         TextView caracteristica;
         ImageView imagen;
         Button verdetalle;
 
 
-        public DeviceViewHolder(@NonNull View itemView) {
+        public DeviceViewHolderCliente(@NonNull View itemView) {
             super(itemView);
             tipo = itemView.findViewById(R.id.textViewTipoDispCliente);
             caracteristica = itemView.findViewById(R.id.textViewmarcaDispCliente);
