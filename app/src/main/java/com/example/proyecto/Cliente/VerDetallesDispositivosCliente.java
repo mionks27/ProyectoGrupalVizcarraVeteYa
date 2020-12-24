@@ -40,6 +40,9 @@ public class VerDetallesDispositivosCliente extends AppCompatActivity {
         textViewIncluye.setText(device.getIncluye());
         textViewStock.setText(String.valueOf(device.getStock()));
 
+        Intent intentReserva = new Intent(VerDetallesDispositivosCliente.this,SolicitudReserva.class);
+        intentReserva.putExtra("device",device);
+        startActivity(intentReserva);
 
     }
 }
