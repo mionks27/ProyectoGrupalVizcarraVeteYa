@@ -189,7 +189,7 @@ public class AgregarDispositivo extends AppCompatActivity {
         String mypk = databaseReference.push().getKey();
         device.setPk(mypk);
 
-        databaseReference.child("Dispositivos").push().setValue(device)
+        databaseReference.child("Dispositivos/"+device.getPk()).setValue(device)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
