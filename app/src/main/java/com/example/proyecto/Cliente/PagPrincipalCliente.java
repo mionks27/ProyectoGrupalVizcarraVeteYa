@@ -36,12 +36,7 @@ public class PagPrincipalCliente extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag_principal_cliente);
-    }
-
-
-    public void botonListarDisponiblesCliente(View view) {
         listarDevices();
-
     }
 
     ////relacionar layout menu cliente con este activity
@@ -63,14 +58,9 @@ public class PagPrincipalCliente extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
-                            case R.id.verDispositivosDisponiblesCliente:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
-                                return true;
-                            case R.id.solicitarPrestamoCliente:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
-                                return true;
                             case R.id.historialPrestamosCliente:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
+                                Intent intent = new Intent(PagPrincipalCliente.this, HistorialSolicitudes.class);
+                                startActivity(intent);
                                 return true;
                             case R.id.cerrarSesionCliente:
                                 logOut();

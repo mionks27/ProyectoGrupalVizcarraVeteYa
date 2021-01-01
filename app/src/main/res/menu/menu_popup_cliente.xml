@@ -5,9 +5,6 @@
         android:id="@+id/verDispositivosDisponiblesCliente"
         android:title="Ver dispositivos disponibles" />
     <item
-        android:id="@+id/solicitarPrestamoCliente"
-        android:title="Solicitar préstamo" />
-    <item
         android:id="@+id/historialPrestamosCliente"
         android:title="Historial de préstamos" />
     <item
