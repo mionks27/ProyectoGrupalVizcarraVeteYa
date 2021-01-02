@@ -12,10 +12,10 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.408"
+        app:layout_constraintStart_toEndOf="@+id/imageViewDispCliente"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.162" />
+        app:layout_constraintVertical_bias="0.175" />
 
     <ImageView
         android:id="@+id/imageViewDispCliente"
@@ -36,10 +36,10 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintHorizontal_bias="0.408"
         app:layout_constraintStart_toEndOf="@+id/imageViewDispCliente"
         app:layout_constraintTop_toBottomOf="@+id/textViewTipoDispCliente"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <Button
         android:id="@+id/buttonVerDetalleDispCliente"

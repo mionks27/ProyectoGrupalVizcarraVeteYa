@@ -1,12 +1,14 @@
 package com.example.proyecto.Cliente;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -27,12 +29,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proyecto.Entity.Device;
+import com.example.proyecto.Entity.DeviceUser;
+import com.example.proyecto.Entity.User;
 import com.example.proyecto.R;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -47,7 +53,7 @@ import java.util.Locale;
 public class SolicitudReserva extends AppCompatActivity {
     Device device = new Device();
     StorageReference reference;
-    Boolean flag;
+    String confirmar = "NO";
     private LocationManager ubicacion;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,20 @@ public class SolicitudReserva extends AppCompatActivity {
         TextView textViewtitulo = findViewById(R.id.textViewTituloDisp);
         textViewtitulo.setText(device.getMarca() + ' ' + device.getTipo());
 
+        final Switch sw = findViewById(R.id.switch1);
+        sw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Boolean switchState = sw.isChecked();
+                if (switchState) {
+                    confirmar = "SI";
+                    Log.d("infoApp", "SWTICH FUNCIONANDO-SI");
+                } else {
+                    confirmar = "NO";
+                    Log.d("infoApp", "SWTICH FUNCIONANDO-NO");
+                }
+            }
+        });
     }
 
     public void mostrarInfoDeUbicacion(View view) {
@@ -80,6 +100,7 @@ public class SolicitudReserva extends AppCompatActivity {
                             Log.d("infoApp", "la direccion es:" + direccion.get(0).getAddressLine(0));
                             TextView textViewGps = findViewById(R.id.textviewdireccionGPS);
                             textViewGps.setText(direccion.get(0).getAddressLine(0));
+                            textViewGps.setVisibility(View.VISIBLE);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -95,7 +116,7 @@ public class SolicitudReserva extends AppCompatActivity {
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
-        }else {
+        } else {
             Toast.makeText(SolicitudReserva.this, "Por favor active su GPS", Toast.LENGTH_SHORT).show(); //FORMATO DE UN TOAST QUE ES COMO UN POP UP
 
         }
@@ -122,26 +143,53 @@ public class SolicitudReserva extends AppCompatActivity {
     }
 
     public void confirmarReserva(View view) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        EditText editTextMotivo = findViewById(R.id.editTextTextMotivo);
-        editTextMotivo.getText().toString();
+        TextView textviewGPSaValidar = findViewById(R.id.textviewdireccionGPS);
+        if (textviewGPSaValidar.getVisibility() == View.VISIBLE) {
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        EditText editTextDireccion = findViewById(R.id.editTextTextDireccion);
-        editTextDireccion.getText().toString();
+            EditText editTextMotivo = findViewById(R.id.editTextTextMotivo);
+            String motivo = editTextMotivo.getText().toString();
 
+            EditText editTextDireccion = findViewById(R.id.editTextTextDireccion);
+            String direccion = editTextDireccion.getText().toString();
 
-        final Switch sw = findViewById(R.id.switch1);
-        sw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean switchState = sw.isChecked();
-                if (switchState) {
-                    flag = true;
-                } else {
-                    flag = false;
+            DeviceUser deviceUser = new DeviceUser();
+            deviceUser.setDevice(device);
+            deviceUser.setDireccionUsuario(direccion);
+            deviceUser.setMotivo(motivo);
+            deviceUser.setEnviarCorreo(confirmar);
+            deviceUser.setEstado("Por Confirmar");
+            String mypk = databaseReference.push().getKey();
+            deviceUser.setPkSolicitud(mypk);
+
+            databaseReference.child("users/" + firebaseUser.getUid() + "/listaSolicitudes/" + mypk).setValue(deviceUser)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("infoApp", "GUARDADO EXITOSO de reserva EN TU DATABASE");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+        } else {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("IMPORTANTE");
+            alertDialog.setMessage("Por favor sigua los siguientes pasos:\n \n 1° Active su GPS \n  2° Presione el botón 'OBTENER UBICACION'\n 3°Haga click en 'RESERVAR' nuevamente");
+            alertDialog.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
                 }
-            }
-        });
+            });
+            alertDialog.show();
+           // Toast.makeText(SolicitudReserva.this, "Para reservar debe activar el GPS y presionar el 'BOTÓN DE OBTENER UBICACION'", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 }

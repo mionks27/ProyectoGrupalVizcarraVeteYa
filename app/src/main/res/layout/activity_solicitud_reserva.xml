@@ -42,6 +42,7 @@
         android:layout_marginStart="68dp"
         android:layout_marginTop="68dp"
         android:text="-----"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -81,12 +82,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
-        android:checked="true"
         android:showText="false"
         android:splitTrack="true"
         android:text="¿Desea recibir un correo de verificación?"
-        android:textOff="No"
-        android:textOn="Sí"
         android:textSize="18sp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/buttonReservarDisp"
@@ -94,7 +92,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textviewdireccionGPS"
         app:layout_constraintVertical_bias="0.377"
-        tools:checked="false"
         tools:visibility="visible" />
 
     <EditText
@@ -158,7 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="mostrarInfoDeUbicacion"
-        android:text="Obtener ubicación."
+        android:text="Obtener ubicación"
         app:layout_constraintBottom_toTopOf="@+id/switch1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.559"

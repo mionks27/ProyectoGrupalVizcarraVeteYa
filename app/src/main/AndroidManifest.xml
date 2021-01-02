@@ -16,9 +16,9 @@
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_logofinalFinalisimo"
+        android:icon="@mipmap/ic_logofinalend"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_logofinalFinalisimo_round"
+        android:roundIcon="@mipmap/ic_logofinalend_round"
         android:supportsRtl="true"
         android:theme="@style/TemaPrincipal"
         tools:targetApi="m">
