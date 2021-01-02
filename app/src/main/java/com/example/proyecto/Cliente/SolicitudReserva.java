@@ -179,13 +179,13 @@ public class SolicitudReserva extends AppCompatActivity {
                             alertDialog.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-
+                                    Intent intent = new Intent(SolicitudReserva.this, PagPrincipalCliente.class);
+                                    startActivity(intent);
+                                    finish();
                                 }
                             });
 
-                            Intent intent = new Intent(SolicitudReserva.this, PagPrincipalCliente.class);
-                            startActivity(intent);
-                            finish();
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
