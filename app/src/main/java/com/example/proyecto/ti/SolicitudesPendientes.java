@@ -2,6 +2,8 @@ package com.example.proyecto.ti;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +12,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
+import com.example.proyecto.Entity.Device;
+import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
+import com.example.proyecto.RecyclerAdapters.DevicesAdapter;
+import com.example.proyecto.RecyclerAdapters.SoliPendientesAdapter;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class SolicitudesPendientes extends AppCompatActivity {
 
@@ -21,6 +34,7 @@ public class SolicitudesPendientes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solicitudes_pendientes);
+        listarSolicitudes();
 
     }
 
@@ -81,6 +95,35 @@ public class SolicitudesPendientes extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void listarSolicitudes(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.child("Solicitudes").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<DeviceUser> deviceArrayList = new ArrayList<>();
+                for(DataSnapshot children : snapshot.getChildren()){
+                    DeviceUser device = children.getValue(DeviceUser.class);
+                    if(device.getEstado().equalsIgnoreCase("Pendiente")){
+                        deviceArrayList.add(device);
+                    }
+                }
+                if(!deviceArrayList.isEmpty()){
+                    SoliPendientesAdapter adapter = new SoliPendientesAdapter(deviceArrayList,SolicitudesPendientes.this);
+                    RecyclerView recyclerView = findViewById(R.id.SoliPendRv);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(SolicitudesPendientes.this));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }

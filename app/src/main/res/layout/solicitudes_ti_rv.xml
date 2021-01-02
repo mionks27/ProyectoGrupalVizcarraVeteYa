@@ -7,27 +7,28 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="410dp"
-        android:layout_height="234dp"
+        android:layout_height="266dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <ImageView
             android:id="@+id/imageViewSolicitudTi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="141dp"
+            android:layout_height="144dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.088"
+            app:layout_constraintHorizontal_bias="0.059"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.475"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textView26"
+            android:id="@+id/textViewNombreDeviceSoli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -37,37 +38,74 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/buttonAceptarSoli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aceptar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.536"
+            app:layout_constraintHorizontal_bias="0.542"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.913" />
+            app:layout_constraintVertical_bias="0.926" />
 
         <Button
-            android:id="@+id/button12"
+            android:id="@+id/buttonrechazarSoli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="rechazar"
-            app:layout_constraintBottom_toBottomOf="@+id/button11"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonAceptarSoli"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button11"
-            app:layout_constraintTop_toTopOf="@+id/button11" />
+            app:layout_constraintStart_toEndOf="@+id/buttonAceptarSoli"
+            app:layout_constraintTop_toTopOf="@+id/buttonAceptarSoli" />
 
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/textViewNombreUserSoli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.165"
+            app:layout_constraintHorizontal_bias="0.22"
             app:layout_constraintStart_toEndOf="@+id/imageViewSolicitudTi"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.246" />
+            app:layout_constraintVertical_bias="0.234" />
+
+        <TextView
+            android:id="@+id/textViewDireccionGpsSoli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAceptarSoli"
+            app:layout_constraintEnd_toEndOf="@+id/textViewDireccionUserSoli"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewDireccionUserSoli"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDireccionUserSoli"
+            app:layout_constraintVertical_bias="0.294" />
+
+        <TextView
+            android:id="@+id/textViewMotivoSoli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAceptarSoli"
+            app:layout_constraintEnd_toEndOf="@+id/textViewDireccionGpsSoli"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewDireccionGpsSoli"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDireccionGpsSoli"
+            app:layout_constraintVertical_bias="0.586" />
+
+        <TextView
+            android:id="@+id/textViewDireccionUserSoli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAceptarSoli"
+            app:layout_constraintEnd_toEndOf="@+id/textViewNombreUserSoli"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewNombreUserSoli"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNombreUserSoli"
+            app:layout_constraintVertical_bias="0.179" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

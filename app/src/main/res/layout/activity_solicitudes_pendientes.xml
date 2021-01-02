@@ -20,10 +20,13 @@
         app:layout_constraintVertical_bias="0.06" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="338dp"
-        android:layout_height="522dp"
+        android:id="@+id/SoliPendRv"
+        android:layout_width="388dp"
+        android:layout_height="576dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintTop_toBottomOf="@+id/textView24"
+        app:layout_constraintVertical_bias="0.345" />
 </androidx.constraintlayout.widget.ConstraintLayout>
