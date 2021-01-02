@@ -175,7 +175,7 @@ public class SolicitudReserva extends AppCompatActivity {
                             Log.d("infoApp", "GUARDADO EXITOSO de reserva EN TU DATABASE");
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(SolicitudReserva.this);
                             alertDialog.setTitle("¡Guardado Exitoso!");
-                            alertDialog.setMessage("Podrás visualizar el estado de tus solicitudes mediante el opción 'Historial de préstamos' en el menú.");
+                            alertDialog.setMessage("Podrás visualizar el estado de tus solicitudes mediante la opción 'Historial de préstamos' en el menú.");
                             alertDialog.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -184,6 +184,7 @@ public class SolicitudReserva extends AppCompatActivity {
                                     finish();
                                 }
                             });
+                            alertDialog.show();
 
 
                         }
