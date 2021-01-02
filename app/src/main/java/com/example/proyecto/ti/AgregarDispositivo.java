@@ -201,7 +201,7 @@ public class AgregarDispositivo extends AppCompatActivity {
         final TextView textViewFoto = findViewById(R.id.textViewFoto);
 
         if(device.getTipo().equalsIgnoreCase("Otro")){
-            device.setTipo("Otro: "+otro.getText().toString());
+            device.setTipo("Otro ("+otro.getText().toString()+")");
         }
 
         String mypk = databaseReference.push().getKey();
