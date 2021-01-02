@@ -8,6 +8,25 @@ public class DeviceUser {
     private String direccionGPS;
     private String enviarCorreo;
     private String pkSolicitud;
+    private String nombreUsuario;
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    private String uidUser;
+
+    public String getUidUser() {
+        return uidUser;
+    }
+
+    public void setUidUser(String uidUser) {
+        this.uidUser = uidUser;
+    }
 
     public String getPkSolicitud() {
         return pkSolicitud;

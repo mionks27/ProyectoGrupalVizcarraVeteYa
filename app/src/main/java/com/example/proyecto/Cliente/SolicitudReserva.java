@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.example.proyecto.Entity.Device;
 import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.Entity.User;
+import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -154,20 +155,37 @@ public class SolicitudReserva extends AppCompatActivity {
             EditText editTextDireccion = findViewById(R.id.editTextTextDireccion);
             String direccion = editTextDireccion.getText().toString();
 
+            TextView textViewGps = findViewById(R.id.textviewdireccionGPS);
             DeviceUser deviceUser = new DeviceUser();
             deviceUser.setDevice(device);
             deviceUser.setDireccionUsuario(direccion);
             deviceUser.setMotivo(motivo);
             deviceUser.setEnviarCorreo(confirmar);
-            deviceUser.setEstado("Por Confirmar");
+            deviceUser.setEstado("Pendiente");
+            deviceUser.setDireccionGPS(textViewGps.getText().toString());
+            deviceUser.setNombreUsuario(firebaseUser.getDisplayName());
+            deviceUser.setUidUser(firebaseUser.getUid());
             String mypk = databaseReference.push().getKey();
             deviceUser.setPkSolicitud(mypk);
 
-            databaseReference.child("users/" + firebaseUser.getUid() + "/listaSolicitudes/" + mypk).setValue(deviceUser)
+            databaseReference.child("Solicitudes/"+ mypk).setValue(deviceUser)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d("infoApp", "GUARDADO EXITOSO de reserva EN TU DATABASE");
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(SolicitudReserva.this);
+                            alertDialog.setTitle("¡Guardado Exitoso!");
+                            alertDialog.setMessage("Podrás visualizar el estado de tus solicitudes mediante el opción 'Historial de préstamos' en el menú.");
+                            alertDialog.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            });
+
+                            Intent intent = new Intent(SolicitudReserva.this, PagPrincipalCliente.class);
+                            startActivity(intent);
+                            finish();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
