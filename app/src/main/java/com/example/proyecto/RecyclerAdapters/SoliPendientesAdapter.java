@@ -1,6 +1,7 @@
 package com.example.proyecto.RecyclerAdapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.R;
+import com.example.proyecto.ti.EditarDispositivo;
+import com.example.proyecto.ti.RechazarSolicitud;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -54,6 +57,14 @@ public class SoliPendientesAdapter extends RecyclerView.Adapter<SoliPendientesAd
         holder.direccionGps.setText("Direccion(Gps): "+ deviceUser.getDireccionGPS());
         holder.direccionUser.setText("Direccion: "+ deviceUser.getDireccionUsuario());
         holder.dmotivo.setText("Motivo: "+deviceUser.getMotivo());
+        holder.rechazar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RechazarSolicitud.class);
+                intent.putExtra("device", deviceUser);
+                context.startActivity(intent);
+            }
+        });
         holder.aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

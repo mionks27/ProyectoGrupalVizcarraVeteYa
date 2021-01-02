@@ -1,6 +1,8 @@
 package com.example.proyecto.Entity;
 
-public class DeviceUser {
+import java.io.Serializable;
+
+public class DeviceUser implements Serializable {
     private Device device;
     private String estado;
     private String motivo;
@@ -9,6 +11,7 @@ public class DeviceUser {
     private String enviarCorreo;
     private String pkSolicitud;
     private String nombreUsuario;
+    private String razonRechazo;
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -82,5 +85,13 @@ public class DeviceUser {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getRazonRechazo() {
+        return razonRechazo;
+    }
+
+    public void setRazonRechazo(String razonRechazo) {
+        this.razonRechazo = razonRechazo;
     }
 }
