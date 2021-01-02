@@ -147,7 +147,7 @@ public class SolicitudReserva extends AppCompatActivity {
         TextView textviewGPSaValidar = findViewById(R.id.textviewdireccionGPS);
         if (textviewGPSaValidar.getVisibility() == View.VISIBLE) {
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+            final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
             EditText editTextMotivo = findViewById(R.id.editTextTextMotivo);
             String motivo = editTextMotivo.getText().toString();
@@ -168,24 +168,24 @@ public class SolicitudReserva extends AppCompatActivity {
             String mypk = databaseReference.push().getKey();
             deviceUser.setPkSolicitud(mypk);
 
-            databaseReference.child("Solicitudes/"+ mypk).setValue(deviceUser)
+            databaseReference.child("Solicitudes/" + mypk).setValue(deviceUser)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d("infoApp", "GUARDADO EXITOSO de reserva EN TU DATABASE");
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(SolicitudReserva.this);
                             alertDialog.setTitle("¡Guardado Exitoso!");
-                            alertDialog.setMessage("Podrás visualizar el estado de tus solicitudes mediante el opción 'Historial de préstamos' en el menú.");
+                            alertDialog.setMessage("Podrás visualizar el estado de tus solicitudes mediante la opción 'Historial de préstamos' en el menú.");
                             alertDialog.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-
+                                    reducirStock(device);
+                                    Intent intent = new Intent(SolicitudReserva.this, PagPrincipalCliente.class);
+                                    startActivity(intent);
+                                    finish();
                                 }
                             });
-
-                            Intent intent = new Intent(SolicitudReserva.this, PagPrincipalCliente.class);
-                            startActivity(intent);
-                            finish();
+                            alertDialog.show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -205,9 +205,30 @@ public class SolicitudReserva extends AppCompatActivity {
                 }
             });
             alertDialog.show();
-           // Toast.makeText(SolicitudReserva.this, "Para reservar debe activar el GPS y presionar el 'BOTÓN DE OBTENER UBICACION'", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(SolicitudReserva.this, "Para reservar debe activar el GPS y presionar el 'BOTÓN DE OBTENER UBICACION'", Toast.LENGTH_SHORT).show();
         }
 
 
+    }
+
+    public void reducirStock(Device device) {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        int stockNuevo = device.getStock() - 1;
+        device.setStock(stockNuevo);
+
+        String mypk = device.getPk();
+        databaseReference.child("Dispositivos/" + mypk).setValue(device).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
+            }
+        });
+        return;
     }
 }
