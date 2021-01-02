@@ -27,18 +27,20 @@ public class HistorialSolicitudes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial_solicitudes);
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
 
-        databaseReference.child("users/" + firebaseUser.getUid() + "/listaSolicitudes/" ).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Solicitudes/").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<DeviceUser> deviceUserArrayList = new ArrayList<>();
                 for (DataSnapshot children : snapshot.getChildren()) {
                     DeviceUser deviceUser =children.getValue(DeviceUser.class);
-                    deviceUserArrayList.add(deviceUser);
+                    if(deviceUser.getUidUser().equalsIgnoreCase(firebaseUser.getUid())){
+                        deviceUserArrayList.add(deviceUser);
+                    }
 
                 }
                 if(!deviceUserArrayList.isEmpty()){
