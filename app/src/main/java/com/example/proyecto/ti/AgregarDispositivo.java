@@ -53,11 +53,12 @@ import java.util.ArrayList;
 public class AgregarDispositivo extends AppCompatActivity {
     Device device = new Device();
     Uri uri;
+    EditText otro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_dispositivo);
-
+        otro = findViewById(R.id.editTextTextOtro);
         String [] lista = {"Laptop","Tableta", "Celular","Monitor","Otro"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,lista);
         Spinner spinner = findViewById(R.id.spinnerTipo);
@@ -68,14 +69,27 @@ public class AgregarDispositivo extends AppCompatActivity {
                 Log.d("JULIO","SELECCIONASTE ESTO : " + parent.getItemAtPosition(position).toString());
                 if(position == 0){
                     device.setTipo("Laptop");
+                    if(otro.getVisibility() == View.VISIBLE){
+                        otro.setVisibility(View.INVISIBLE);
+                    }
                 }else if(position == 1){
                     device.setTipo("Tableta");
+                    if(otro.getVisibility() == View.VISIBLE){
+                        otro.setVisibility(View.INVISIBLE);
+                    }
                 }else if(position == 2){
                     device.setTipo("Celular");
+                    if(otro.getVisibility() == View.VISIBLE){
+                        otro.setVisibility(View.INVISIBLE);
+                    }
                 }else if(position == 3){
                     device.setTipo("Monitor");
+                    if(otro.getVisibility() == View.VISIBLE){
+                        otro.setVisibility(View.INVISIBLE);
+                    }
                 }else if(position == 4){
                     device.setTipo("Otro");
+                    otro.setVisibility(View.VISIBLE);
                 }
             }
             @Override

@@ -67,13 +67,14 @@ public class PaginaPrincipalTI extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.verSolicitudPrestamoTI:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
+                                Intent intent = new Intent(PaginaPrincipalTI.this, SolicitudesPendientes.class);
+                                startActivity(intent);
+                                finish();
                                 return true;
                             case R.id.verPedidosTI:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
-                                return true;
-                            case R.id.gestionarDispositivosTI:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
+                                Intent intent1 = new Intent(PaginaPrincipalTI.this, SolicitudesPendientes.class);
+                                startActivity(intent1);
+                                finish();
                                 return true;
                             case R.id.cerrarSesionTI:
                                 logOut();
