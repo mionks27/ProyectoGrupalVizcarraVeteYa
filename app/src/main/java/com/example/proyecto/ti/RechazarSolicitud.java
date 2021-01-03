@@ -48,30 +48,32 @@ public class RechazarSolicitud extends AppCompatActivity {
     }
 
     public void confirmarRechazo(View view){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        deviceUser.setEstado("Rechazado");
+
         EditText editTextrechazo = findViewById(R.id.editTextRazon);
         if(editTextrechazo.getText().toString().trim().isEmpty()){
             editTextrechazo.setError("Este campo no puede ser vacío");
+        }else{
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+            deviceUser.setEstado("Rechazado");
+            deviceUser.setRazonRechazo(editTextrechazo.getText().toString().trim());
+            databaseReference.child("Solicitudes/"+deviceUser.getPkSolicitud()).setValue(deviceUser)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("JULIO","Solicitud Aceptada");
+                            Toast.makeText(RechazarSolicitud.this, "Solicitud Rechazada exitósamente", Toast.LENGTH_SHORT).show();
+                            Intent intent1 = new Intent(RechazarSolicitud.this, SolicitudesPendientes.class);
+                            startActivity(intent1);
+                            finish();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
         }
-        deviceUser.setRazonRechazo(editTextrechazo.getText().toString().trim());
-        databaseReference.child("Solicitudes/"+deviceUser.getPkSolicitud()).setValue(deviceUser)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("JULIO","Solicitud Aceptada");
-                        Toast.makeText(RechazarSolicitud.this, "Solicitud Rechazada exitósamente", Toast.LENGTH_SHORT).show();
-                        Intent intent1 = new Intent(RechazarSolicitud.this, SolicitudesPendientes.class);
-                        startActivity(intent1);
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        e.printStackTrace();
-                    }
-                });
     }
 
 }

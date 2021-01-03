@@ -54,6 +54,7 @@ public class AgregarDispositivo extends AppCompatActivity {
     Device device = new Device();
     Uri uri;
     EditText otro;
+    boolean cond1,cond2,cond3,cond4 = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,43 +192,61 @@ public class AgregarDispositivo extends AppCompatActivity {
     public void guardarDispositivo(View view){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         EditText editTextMarca = findViewById(R.id.editTextTextMarca);
-        device.setMarca(editTextMarca.getText().toString());
         EditText editTextTextCaracteristicas = findViewById(R.id.editTextTextCaracteristicas);
-        device.setCaracteristica(editTextTextCaracteristicas.getText().toString());
         EditText editTextTextIncluye = findViewById(R.id.editTextTextIncluye);
-        device.setIncluye(editTextTextIncluye.getText().toString());
         EditText editTextNumberStock = findViewById(R.id.editTextNumberStock);
-        device.setStock(Integer.parseInt(editTextNumberStock.getText().toString()));
-        final TextView textViewFoto = findViewById(R.id.textViewFoto);
+        if(editTextMarca.getText().toString().trim().isEmpty()){
+            editTextMarca.setError("Este campo no puede ser vacío");
+        }else{
+            if(editTextTextCaracteristicas.getText().toString().trim().isEmpty()){
+                editTextTextCaracteristicas.setError("Este campo no puede ser vacío");
+            }else{
+                if(editTextTextIncluye.getText().toString().trim().isEmpty()){
+                    editTextTextIncluye.setError("Este campo no puede ser vacío");
+                }else{
+                    if(editTextNumberStock.getText().toString().trim().isEmpty()){
+                        editTextNumberStock.setError("Este campo no puede ser vacío");
+                    }else{
+                        device.setStock(Integer.parseInt(editTextNumberStock.getText().toString()));
+                        device.setMarca(editTextMarca.getText().toString());
+                        device.setCaracteristica(editTextTextCaracteristicas.getText().toString());
+                        device.setIncluye(editTextTextIncluye.getText().toString());
+                        final TextView textViewFoto = findViewById(R.id.textViewFoto);
 
-        if(device.getTipo().equalsIgnoreCase("Otro")){
-            device.setTipo("Otro ("+otro.getText().toString()+")");
-        }
-
-        String mypk = databaseReference.push().getKey();
-        device.setPk(mypk);
-
-        databaseReference.child("Dispositivos/"+device.getPk()).setValue(device)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("JULIO","GUARDADO EXITOSO EN TU DATABASE");
-
-                        if(textViewFoto.getVisibility()==View.VISIBLE){
-                            subirArchivoConPutFile(textViewFoto.getText().toString());
-                        }else{
-                            subirArchivoConPutFile(device.getNombreFoto());
+                        if(device.getTipo().equalsIgnoreCase("Otro")){
+                            if(otro.getText().toString().trim().isEmpty()){
+                                otro.setError("Este campo no puede ser vacío");
+                            }
+                            device.setTipo("Otro ("+otro.getText().toString()+")");
                         }
 
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        e.printStackTrace();
-                    }
-                });
+                        String mypk = databaseReference.push().getKey();
+                        device.setPk(mypk);
 
+                        databaseReference.child("Dispositivos/"+device.getPk()).setValue(device)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("JULIO","GUARDADO EXITOSO EN TU DATABASE");
+
+                                        if(textViewFoto.getVisibility()==View.VISIBLE){
+                                            subirArchivoConPutFile(textViewFoto.getText().toString());
+                                        }else{
+                                            subirArchivoConPutFile(device.getNombreFoto());
+                                        }
+
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+                    }
+                }
+            }
+        }
     }
 
     public void subirArchivoConPutFile( String fileName) {
