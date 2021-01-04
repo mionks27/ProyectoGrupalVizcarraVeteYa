@@ -76,7 +76,7 @@ public class SoliPendientesAdapter extends RecyclerView.Adapter<SoliPendientesAd
                             public void onSuccess(Void aVoid) {
                                 Log.d("JULIO","Solicitud Aceptada");
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                                databaseReference.child("Solicitudes/"+deviceUser.getUidUser()).setValue(deviceUser)
+                                databaseReference.child("Notificaciones/Solicitudes/"+deviceUser.getUidUser()).setValue(deviceUser)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
