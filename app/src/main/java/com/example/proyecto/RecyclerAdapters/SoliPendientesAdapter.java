@@ -53,7 +53,7 @@ public class SoliPendientesAdapter extends RecyclerView.Adapter<SoliPendientesAd
                 FirebaseStorage.getInstance().getReference().child(deviceUser.getDevice().getPk()+"/"+deviceUser.getDevice().getNombreFoto());
         Glide.with(context).load(reference).into(holder.imagen);
         holder.device.setText("Tipo: "+deviceUser.getDevice().getTipo()+" - "+"Marca: "+deviceUser.getDevice().getMarca());
-        holder.name.setText("Nombre del Cliente: "+deviceUser.getNombreUsuario());
+        holder.name.setText("Cliente: "+deviceUser.getNombreUsuario());
         holder.direccionGps.setText("Direccion(Gps): "+ deviceUser.getDireccionGPS());
         holder.direccionUser.setText("Direccion: "+ deviceUser.getDireccionUsuario());
         holder.dmotivo.setText("Motivo: "+deviceUser.getMotivo());
@@ -75,7 +75,21 @@ public class SoliPendientesAdapter extends RecyclerView.Adapter<SoliPendientesAd
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d("JULIO","Solicitud Aceptada");
-                                Toast.makeText(context, "Dispositivo Aceptado exitósamente", Toast.LENGTH_SHORT).show();
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                databaseReference.child("Solicitudes/"+deviceUser.getUidUser()).setValue(deviceUser)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("JULIO","Notificación Aceptada");
+                                                Toast.makeText(context, "Dispositivo Aceptado exitósamente", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        });
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
