@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
-import com.example.proyecto.Entity.Device;
 import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
@@ -29,15 +28,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HistorialSolicitudes extends AppCompatActivity {
+public class SolicitudesPendienteCliente extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_historial_solicitudes);
+        setContentView(R.layout.activity_solicitudes_pendiente_cliente);
+
+
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-
 
 
         databaseReference.child("Solicitudes/").addValueEventListener(new ValueEventListener() {
@@ -45,20 +45,20 @@ public class HistorialSolicitudes extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<DeviceUser> deviceUserArrayList = new ArrayList<>();
                 for (DataSnapshot children : snapshot.getChildren()) {
-                    DeviceUser deviceUser =children.getValue(DeviceUser.class);
-                    if(deviceUser.getUidUser().equalsIgnoreCase(firebaseUser.getUid())){
-                        if(!deviceUser.getEstado().equalsIgnoreCase("Pendiente")){
+                    DeviceUser deviceUser = children.getValue(DeviceUser.class);
+                    if (deviceUser.getUidUser().equalsIgnoreCase(firebaseUser.getUid())) {
+                        if (deviceUser.getEstado().equalsIgnoreCase("Pendiente")) {
                             deviceUserArrayList.add(deviceUser);
                         }
 
                     }
 
                 }
-                if(!deviceUserArrayList.isEmpty()){
-                    HistorialAdapter adapter = new HistorialAdapter(deviceUserArrayList, HistorialSolicitudes.this);
-                    RecyclerView recyclerView = findViewById(R.id.recyclerViewHistorial);
+                if (!deviceUserArrayList.isEmpty()) {
+                    HistorialAdapter adapter = new HistorialAdapter(deviceUserArrayList, SolicitudesPendienteCliente.this);
+                    RecyclerView recyclerView = findViewById(R.id.recyclerViewSoliPendiente);
                     recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(HistorialSolicitudes.this));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(SolicitudesPendienteCliente.this));
                 }
 
             }
@@ -75,7 +75,7 @@ public class HistorialSolicitudes extends AppCompatActivity {
     ////relacionar layout menu cliente con este activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_cliente, menu);
+        getMenuInflater().inflate(R.menu.menu_cliente, menu); ///menu se mantiene independientemente del controlador
         return true;
     }
 
@@ -92,9 +92,13 @@ public class HistorialSolicitudes extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.historialPrestamosCliente:
+
                                 return true;
                             case R.id.cerrarSesionCliente:
                                 logOut();
+                                return true;
+                            case R.id.verDispositivosDisponiblesCliente:
+
                                 return true;
                             default:
                                 return false;
@@ -115,11 +119,13 @@ public class HistorialSolicitudes extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 // Lógica de cerrao de sesión lo pongo aquí porque luego lo ecesitaremos cuando acabemos el menú de cliente y TI
-                Intent intent = new Intent(HistorialSolicitudes.this, MainActivity.class);
+                Intent intent = new Intent(SolicitudesPendienteCliente.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
     }
+
+
 }

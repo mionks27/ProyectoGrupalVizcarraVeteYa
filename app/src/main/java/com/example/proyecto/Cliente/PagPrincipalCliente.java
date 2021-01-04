@@ -88,12 +88,19 @@ public class PagPrincipalCliente extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.historialPrestamosCliente:
+                                ///historial solicitudes muestra != pendiente
                                 Intent intent = new Intent(PagPrincipalCliente.this, HistorialSolicitudes.class);
                                 startActivity(intent);
+                                finish();
                                 return true;
                             case R.id.cerrarSesionCliente:
                                 logOut();
                                 return true;
+                            case R.id.SolicitudesPendientes:
+                                Intent intent1 = new Intent(PagPrincipalCliente.this, SolicitudesPendienteCliente.class);
+                                startActivity(intent1);
+                                finish();
+                                return  true;
                             default:
                                 return false;
 

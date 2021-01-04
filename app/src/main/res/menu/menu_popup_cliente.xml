@@ -8,6 +8,9 @@
         android:id="@+id/historialPrestamosCliente"
         android:title="Historial de préstamos" />
     <item
+        android:id="@+id/SolicitudesPendientes"
+        android:title="Solicitudes pendientes" />
+    <item
         android:id="@+id/cerrarSesionCliente"
         android:title="Cerrar Sesión" />
 </menu>
