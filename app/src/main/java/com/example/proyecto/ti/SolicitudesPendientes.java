@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.example.proyecto.Entity.Device;
 import com.example.proyecto.Entity.DeviceUser;
@@ -111,10 +112,25 @@ public class SolicitudesPendientes extends AppCompatActivity {
                     }
                 }
                 if(!deviceArrayList.isEmpty()){
+                    TextView message = findViewById(R.id.textViewMessageSoliciPendi);
+                    if(message.getVisibility()==View.VISIBLE){
+                        message.setVisibility(View.INVISIBLE);
+                    }
                     SoliPendientesAdapter adapter = new SoliPendientesAdapter(deviceArrayList,SolicitudesPendientes.this);
                     RecyclerView recyclerView = findViewById(R.id.SoliPendRv);
+                    if(recyclerView.getVisibility()==View.INVISIBLE){
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(SolicitudesPendientes.this));
+                }else{
+                    TextView message = findViewById(R.id.textViewMessageSoliciPendi);
+                    message.setVisibility(View.VISIBLE);
+                    RecyclerView recyclerView = findViewById(R.id.SoliPendRv);
+                    if(recyclerView.getVisibility()==View.VISIBLE){
+                        recyclerView.setVisibility(View.INVISIBLE);
+                    }
+
                 }
 
             }

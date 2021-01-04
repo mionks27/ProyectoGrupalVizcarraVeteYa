@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.example.proyecto.Cliente.PagPrincipalCliente;
 import com.example.proyecto.Entity.Device;
@@ -124,10 +125,24 @@ public class PaginaPrincipalTI extends AppCompatActivity {
                     deviceArrayList.add(device);
               }
               if(!deviceArrayList.isEmpty()){
+                  TextView message = findViewById(R.id.textViewMessageDispo);
+                  if(message.getVisibility()==View.VISIBLE){
+                      message.setVisibility(View.INVISIBLE);
+                  }
                   DevicesAdapter adapter = new DevicesAdapter(deviceArrayList,PaginaPrincipalTI.this);
                   RecyclerView recyclerView = findViewById(R.id.devicesRv);
+                  if(recyclerView.getVisibility()==View.INVISIBLE){
+                      recyclerView.setVisibility(View.VISIBLE);
+                  }
                   recyclerView.setAdapter(adapter);
                   recyclerView.setLayoutManager(new LinearLayoutManager(PaginaPrincipalTI.this));
+              }else{
+                  TextView message = findViewById(R.id.textViewMessageDispo);
+                      message.setVisibility(View.VISIBLE);
+                  RecyclerView recyclerView = findViewById(R.id.devicesRv);
+                  if(recyclerView.getVisibility()==View.VISIBLE){
+                      recyclerView.setVisibility(View.INVISIBLE);
+                  }
               }
 
             }

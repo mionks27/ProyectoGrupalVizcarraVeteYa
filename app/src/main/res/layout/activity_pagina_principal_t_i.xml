@@ -35,12 +35,24 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/devicesRv"
-        android:layout_width="386dp"
-        android:layout_height="565dp"
+        android:layout_width="412dp"
+        android:layout_height="563dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.903" />
+
+    <TextView
+        android:id="@+id/textViewMessageDispo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No hay dispositivos"
+        android:textSize="30sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
