@@ -19,7 +19,7 @@ public class UbicacionMapActivity extends FragmentActivity implements OnMapReady
     private GoogleMap mMap;
     private Double longitud;
     private Double latitud;
-
+private  String nombreUsuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +31,7 @@ public class UbicacionMapActivity extends FragmentActivity implements OnMapReady
         Intent intent = getIntent();
         latitud = intent.getDoubleExtra("latitud",0);
         longitud = intent.getDoubleExtra("longitud",0);
+        nombreUsuario = intent.getStringExtra("nombreUsuario");
 
     }
 
@@ -46,12 +47,17 @@ public class UbicacionMapActivity extends FragmentActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        //MarkerOptions markerOptions = new MarkerOptions();
+        UiSettings uiSettings = mMap.getUiSettings();
+        uiSettings.setCompassEnabled(true);
+        uiSettings.setZoomControlsEnabled(true);
+        uiSettings.setMyLocationButtonEnabled(false);
+        uiSettings.setMapToolbarEnabled(false);
+                //MarkerOptions markerOptions = new MarkerOptions();
         //markerOptions.position(new LatLng(latitud, longitud));
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(latitud, longitud);
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Ubicación de Usuario."));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Ubicación de "+nombreUsuario));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitud,longitud),16.0f));
     }
 }

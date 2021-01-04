@@ -55,6 +55,8 @@ public class SolicitudReserva extends AppCompatActivity {
     Device device = new Device();
     StorageReference reference;
     String confirmar = "NO";
+    FirebaseUser firebaseUser;
+    DeviceUser deviceUser = new DeviceUser();
     private LocationManager ubicacion;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class SolicitudReserva extends AppCompatActivity {
         Intent intent = getIntent();
         device = (Device) intent.getSerializableExtra("device");
         reference = FirebaseStorage.getInstance().getReference().child(device.getPk() + "/" + device.getNombreFoto());
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         TextView textViewtitulo = findViewById(R.id.textViewTituloDisp);
@@ -102,10 +105,9 @@ public class SolicitudReserva extends AppCompatActivity {
                             TextView textViewGps = findViewById(R.id.textviewdireccionGPS);
                             textViewGps.setText(direccion.get(0).getAddressLine(0));
                             textViewGps.setVisibility(View.VISIBLE);
-                            Intent intent = new Intent(SolicitudReserva.this, UbicacionMapActivity.class);
-                            intent.putExtra("latitud",location.getLatitude());
-                            intent.putExtra("longitud",location.getLongitude());
-                            startActivity(intent);
+                            deviceUser.setLatitud(location.getLatitude());
+                            deviceUser.setLongitud(location.getLongitude());
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -160,7 +162,6 @@ public class SolicitudReserva extends AppCompatActivity {
             String direccion = editTextDireccion.getText().toString();
 
             TextView textViewGps = findViewById(R.id.textviewdireccionGPS);
-            DeviceUser deviceUser = new DeviceUser();
             deviceUser.setDevice(device);
             deviceUser.setDireccionUsuario(direccion);
             deviceUser.setMotivo(motivo);

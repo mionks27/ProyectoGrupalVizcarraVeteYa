@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.proyecto.Cliente.SolicitudReserva;
+import com.example.proyecto.Cliente.UbicacionMapActivity;
 import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.Entity.Notificaciones;
 import com.example.proyecto.R;
@@ -63,6 +66,16 @@ public class SoliPendientesAdapter extends RecyclerView.Adapter<SoliPendientesAd
             public void onClick(View v) {
                 Intent intent = new Intent(context, RechazarSolicitud.class);
                 intent.putExtra("device", deviceUser);
+                context.startActivity(intent);
+            }
+        });
+        holder.imageButtonLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, UbicacionMapActivity.class);
+                intent.putExtra("latitud",deviceUser.getLatitud());
+                intent.putExtra("longitud",deviceUser.getLongitud());
+                intent.putExtra("nombreUsuario",deviceUser.getNombreUsuario());
                 context.startActivity(intent);
             }
         });
@@ -120,6 +133,7 @@ public class SoliPendientesAdapter extends RecyclerView.Adapter<SoliPendientesAd
         public Button aceptar;
         public Button rechazar;
         public ImageView imagen;
+        public ImageButton imageButtonLocation;
 
         public SolicitudesViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -131,6 +145,8 @@ public class SoliPendientesAdapter extends RecyclerView.Adapter<SoliPendientesAd
             aceptar = itemView.findViewById(R.id.buttonAceptarSoli);
             rechazar = itemView.findViewById(R.id.buttonrechazarSoli);
             imagen = itemView.findViewById(R.id.imageViewSolicitudTi);
+            imageButtonLocation=itemView.findViewById(R.id.imageButtonLocation);
         }
     }
+
 }
