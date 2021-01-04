@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.example.proyecto.Cliente.PagPrincipalCliente;
 import com.example.proyecto.Entity.Device;
@@ -67,13 +68,14 @@ public class PaginaPrincipalTI extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.verSolicitudPrestamoTI:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
+                                Intent intent = new Intent(PaginaPrincipalTI.this, SolicitudesPendientes.class);
+                                startActivity(intent);
+                                finish();
                                 return true;
                             case R.id.verPedidosTI:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
-                                return true;
-                            case R.id.gestionarDispositivosTI:
-                                ////AQUÍ LINK PARA LLEVAR A OTRO ACTIVITY
+                                Intent intent1 = new Intent(PaginaPrincipalTI.this, SolicitudesPendientes.class);
+                                startActivity(intent1);
+                                finish();
                                 return true;
                             case R.id.cerrarSesionTI:
                                 logOut();
@@ -123,10 +125,24 @@ public class PaginaPrincipalTI extends AppCompatActivity {
                     deviceArrayList.add(device);
               }
               if(!deviceArrayList.isEmpty()){
+                  TextView message = findViewById(R.id.textViewMessageDispo);
+                  if(message.getVisibility()==View.VISIBLE){
+                      message.setVisibility(View.INVISIBLE);
+                  }
                   DevicesAdapter adapter = new DevicesAdapter(deviceArrayList,PaginaPrincipalTI.this);
                   RecyclerView recyclerView = findViewById(R.id.devicesRv);
+                  if(recyclerView.getVisibility()==View.INVISIBLE){
+                      recyclerView.setVisibility(View.VISIBLE);
+                  }
                   recyclerView.setAdapter(adapter);
                   recyclerView.setLayoutManager(new LinearLayoutManager(PaginaPrincipalTI.this));
+              }else{
+                  TextView message = findViewById(R.id.textViewMessageDispo);
+                      message.setVisibility(View.VISIBLE);
+                  RecyclerView recyclerView = findViewById(R.id.devicesRv);
+                  if(recyclerView.getVisibility()==View.VISIBLE){
+                      recyclerView.setVisibility(View.INVISIBLE);
+                  }
               }
 
             }
