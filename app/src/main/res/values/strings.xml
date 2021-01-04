@@ -3,4 +3,6 @@
     <string name="reservar">Reservar</string>
     <string name="regresar">Regresar</string>
     <string name="uhmmm">uhmmmmmmmm</string>
+    <string name="title_activity_ubicacion_map">Map</string>
+    <string name="google_maps_key">AIzaSyA7wqhw9zEqm3yhmsxSpdPKEKrq1nWhVNg</string>
 </resources>

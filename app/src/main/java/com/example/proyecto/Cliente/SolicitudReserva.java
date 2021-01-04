@@ -102,6 +102,10 @@ public class SolicitudReserva extends AppCompatActivity {
                             TextView textViewGps = findViewById(R.id.textviewdireccionGPS);
                             textViewGps.setText(direccion.get(0).getAddressLine(0));
                             textViewGps.setVisibility(View.VISIBLE);
+                            Intent intent = new Intent(SolicitudReserva.this, UbicacionMapActivity.class);
+                            intent.putExtra("latitud",location.getLatitude());
+                            intent.putExtra("longitud",location.getLongitude());
+                            startActivity(intent);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
