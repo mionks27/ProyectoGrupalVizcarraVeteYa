@@ -54,15 +54,10 @@ public class PagPrincipalCliente extends AppCompatActivity {
 
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        //AHORA TOCA VALIDAR LA VERSION DE ANDORID
-        //SI SU DISPOSITIVO TIENE UNA VERSION IGUAL O MAYOR A LA O
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            //-------------------------------------------------------------------------------------------------------------------------------
-            //CREAMOS UN CHANNEL DEFAULT
             NotificationChannel notificationChannelDefault = new NotificationChannel(importanceDefault,"notificaciones importance DEFAULT",
                     NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannelDefault.setDescription("Canal con notificaciones que hacen sonido, aparecen en notification drawer y barra de notificaciones");
-            //AHORA CREAMOS EL CANAL
             notificationManager.createNotificationChannel(notificationChannelDefault);
             //-------------------------------------------------------------------------------------------------------------------------------
         }
@@ -160,17 +155,15 @@ public class PagPrincipalCliente extends AppCompatActivity {
 
     public void generarNotificacion(){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        databaseReference.child("Notificaciones/"+firebaseUser.getUid()).addChildEventListener(new ChildEventListener() {
+        databaseReference.child("Notificaciones/").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (snapshot.getValue() != null){
-                    //notificaciones =
-                    DeviceUser deviceUser = snapshot.getValue(DeviceUser.class);
-                    Log.d("infoApp", "PARAM : "+ deviceUser.getEstado());
-
-                    if(deviceUser != null){
+                    if(snapshot.getKey().equalsIgnoreCase(firebaseUser.getUid())){
+                        DeviceUser deviceUser = snapshot.getValue(DeviceUser.class);
+                        Log.d("infoApp", "PARAM : "+ deviceUser.getEstado());
                         notificationImportanceDefault(deviceUser);
                     }
                 }
@@ -178,7 +171,13 @@ public class PagPrincipalCliente extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                if (snapshot.getValue() != null){
+                    if(snapshot.getKey().equalsIgnoreCase(firebaseUser.getUid())){
+                        DeviceUser deviceUser = snapshot.getValue(DeviceUser.class);
+                        Log.d("infoApp", "PARAM : "+ deviceUser.getEstado());
+                        notificationImportanceDefault(deviceUser);
+                    }
+                }
             }
 
             @Override

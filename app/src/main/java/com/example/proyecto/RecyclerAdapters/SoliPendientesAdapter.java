@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.proyecto.Entity.DeviceUser;
+import com.example.proyecto.Entity.Notificaciones;
 import com.example.proyecto.R;
 import com.example.proyecto.ti.EditarDispositivo;
 import com.example.proyecto.ti.RechazarSolicitud;
@@ -75,8 +76,10 @@ public class SoliPendientesAdapter extends RecyclerView.Adapter<SoliPendientesAd
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d("JULIO","Solicitud Aceptada");
+                                Notificaciones notificaciones= new Notificaciones();
+
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                                databaseReference.child("Notificaciones/Solicitudes/"+deviceUser.getUidUser()).setValue(deviceUser)
+                                databaseReference.child("Notificaciones/"+deviceUser.getUidUser()).setValue(deviceUser)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
