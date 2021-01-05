@@ -63,6 +63,9 @@ public class SolicitudReserva extends AppCompatActivity {
     DeviceUser deviceUser = new DeviceUser();
     private LocationManager ubicacion;
 
+    EditText motivo;
+    EditText direc;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solicitud_reserva);
@@ -90,6 +93,10 @@ public class SolicitudReserva extends AppCompatActivity {
                 }
             }
         });
+
+
+        motivo = findViewById(R.id.editTextTextMotivo);
+        direc = findViewById(R.id.editTextTextDireccion);
     }
 
     public void mostrarInfoDeUbicacion(View view) {
@@ -153,57 +160,81 @@ public class SolicitudReserva extends AppCompatActivity {
         return providerEnabled;
     }
 
+    /*private void limpiarCajas() {
+        motivo.setText("");
+        direc.setText("");
+    }*/
+
+    private void validamos() {
+        String mot = motivo.getText().toString().trim();
+        String dir = direc.getText().toString().trim();
+        if (mot.equals("")){
+            motivo.setError("Este campo no puede ser vacío");
+        }else if (dir.equals("")){
+            direc.setError("Este campo no puede ser vacío");
+        }
+
+    }
+
     public void confirmarReserva(View view) {
+        String mot = motivo.getText().toString().trim();
+        String dir = direc.getText().toString().trim();
+
         TextView textviewGPSaValidar = findViewById(R.id.textviewdireccionGPS);
         if (textviewGPSaValidar.getVisibility() == View.VISIBLE) {
-            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-            EditText editTextMotivo = findViewById(R.id.editTextTextMotivo);
-            String motivo = editTextMotivo.getText().toString();
+            if(mot.equals("")||dir.equals("")){
+                validamos();
+            }else{
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-            EditText editTextDireccion = findViewById(R.id.editTextTextDireccion);
-            String direccion = editTextDireccion.getText().toString();
+                EditText editTextMotivo = findViewById(R.id.editTextTextMotivo);
+                String motivo = editTextMotivo.getText().toString();
 
-            TextView textViewGps = findViewById(R.id.textviewdireccionGPS);
-            deviceUser.setDevice(device);
-            deviceUser.setDireccionUsuario(direccion);
-            deviceUser.setMotivo(motivo);
-            deviceUser.setEnviarCorreo(confirmar);
-            deviceUser.setEstado("Pendiente");
-            deviceUser.setDireccionGPS(textViewGps.getText().toString());
-            deviceUser.setNombreUsuario(firebaseUser.getDisplayName());
-            deviceUser.setUidUser(firebaseUser.getUid());
-            deviceUser.setCorreoUser(firebaseUser.getEmail());
-            String mypk = databaseReference.push().getKey();
-            deviceUser.setPkSolicitud(mypk);
+                EditText editTextDireccion = findViewById(R.id.editTextTextDireccion);
+                String direccion = editTextDireccion.getText().toString();
 
-            databaseReference.child("Solicitudes/" + mypk).setValue(deviceUser)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("infoApp", "GUARDADO EXITOSO de reserva EN TU DATABASE");
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(SolicitudReserva.this);
-                            alertDialog.setTitle("¡Guardado Exitoso!");
-                            alertDialog.setMessage("Podrás visualizar el estado de tus solicitudes mediante la opción 'Historial de préstamos' en el menú.");
-                            alertDialog.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    reducirStock(device);
-                                    Intent intent = new Intent(SolicitudReserva.this, PagPrincipalCliente.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            });
-                            alertDialog.show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            e.printStackTrace();
-                        }
-                    });
+                TextView textViewGps = findViewById(R.id.textviewdireccionGPS);
+                deviceUser.setDevice(device);
+                deviceUser.setDireccionUsuario(direccion);
+                deviceUser.setMotivo(motivo);
+                deviceUser.setEnviarCorreo(confirmar);
+                deviceUser.setEstado("Pendiente");
+                deviceUser.setDireccionGPS(textViewGps.getText().toString());
+                deviceUser.setNombreUsuario(firebaseUser.getDisplayName());
+                deviceUser.setUidUser(firebaseUser.getUid());
+                deviceUser.setCorreoUser(firebaseUser.getEmail());
+                String mypk = databaseReference.push().getKey();
+                deviceUser.setPkSolicitud(mypk);
+
+                databaseReference.child("Solicitudes/" + mypk).setValue(deviceUser)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("infoApp", "GUARDADO EXITOSO de reserva EN TU DATABASE");
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(SolicitudReserva.this);
+                                alertDialog.setTitle("¡Guardado Exitoso!");
+                                alertDialog.setMessage("Podrás visualizar el estado de tus solicitudes mediante la opción 'Historial de préstamos' en el menú.");
+                                alertDialog.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        reducirStock(device);
+                                        Intent intent = new Intent(SolicitudReserva.this, PagPrincipalCliente.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                                alertDialog.show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+            }
         } else {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setTitle("IMPORTANTE");
