@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.proyecto.Cliente.SolicitudReserva;
 import com.example.proyecto.Cliente.UbicacionMapActivity;
 import com.example.proyecto.Entity.DeviceUser;
+import com.example.proyecto.Entity.JavaMailAPI;
 import com.example.proyecto.Entity.Notificaciones;
 import com.example.proyecto.R;
 import com.example.proyecto.ti.EditarDispositivo;
@@ -97,6 +98,16 @@ public class SoliPendientesAdapter extends RecyclerView.Adapter<SoliPendientesAd
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.d("JULIO","Notificación Aceptada");
+                                                if(deviceUser.getEnviarCorreo().equalsIgnoreCase("Si")){
+                                                    String mail = deviceUser.getCorreoUser();
+                                                    String subject = "Solicitud sobre: "+deviceUser.getDevice().getTipo()+" - "+deviceUser.getDevice().getMarca();
+                                                    String message = "Su solicitud fue aprobada";
+                                                    if(!deviceUser.getEstado().equalsIgnoreCase("Aceptado")){
+                                                        message = "Su solicitud fue rechazada, por la razón de: " +deviceUser.getRazonRechazo();
+                                                    }
+                                                    JavaMailAPI javaMailAPI = new JavaMailAPI(context,mail,subject,message);
+                                                    javaMailAPI.execute();
+                                                }
                                                 Toast.makeText(context, "Dispositivo Aceptado exitósamente", Toast.LENGTH_SHORT).show();
                                             }
                                         })
@@ -148,5 +159,4 @@ public class SoliPendientesAdapter extends RecyclerView.Adapter<SoliPendientesAd
             imageButtonLocation=itemView.findViewById(R.id.imageButtonLocation);
         }
     }
-
 }

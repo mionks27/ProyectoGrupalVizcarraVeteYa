@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.proyecto.Entity.Device;
 import com.example.proyecto.Entity.DeviceUser;
+import com.example.proyecto.Entity.JavaMailAPI;
 import com.example.proyecto.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -61,6 +62,16 @@ public class RechazarSolicitud extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d("JULIO","Solicitud Aceptada");
+                            if(deviceUser.getEnviarCorreo().equalsIgnoreCase("Si")){
+                                String mail = deviceUser.getCorreoUser();
+                                String subject = "Solicitud sobre: "+deviceUser.getDevice().getTipo()+" - "+deviceUser.getDevice().getMarca();
+                                String message = "Su solicitud fue aprobada";
+                                if(!deviceUser.getEstado().equalsIgnoreCase("Aceptado")){
+                                    message = "Su solicitud fue rechazada, por la razón de: " +deviceUser.getRazonRechazo();
+                                }
+                                JavaMailAPI javaMailAPI = new JavaMailAPI(RechazarSolicitud.this,mail,subject,message);
+                                javaMailAPI.execute();
+                            }
                             Toast.makeText(RechazarSolicitud.this, "Solicitud Rechazada exitósamente", Toast.LENGTH_SHORT).show();
                             Intent intent1 = new Intent(RechazarSolicitud.this, SolicitudesPendientes.class);
                             startActivity(intent1);

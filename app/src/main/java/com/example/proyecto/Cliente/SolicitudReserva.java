@@ -174,6 +174,7 @@ public class SolicitudReserva extends AppCompatActivity {
             deviceUser.setDireccionGPS(textViewGps.getText().toString());
             deviceUser.setNombreUsuario(firebaseUser.getDisplayName());
             deviceUser.setUidUser(firebaseUser.getUid());
+            deviceUser.setCorreoUser(firebaseUser.getEmail());
             String mypk = databaseReference.push().getKey();
             deviceUser.setPkSolicitud(mypk);
 

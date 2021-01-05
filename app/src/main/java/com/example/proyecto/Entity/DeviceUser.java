@@ -14,6 +14,7 @@ public class DeviceUser implements Serializable {
     private String razonRechazo;
     private Double latitud;
     private Double longitud;
+    private String correoUser;
 
     public Double getLatitud() {
         return latitud;
@@ -111,5 +112,13 @@ public class DeviceUser implements Serializable {
 
     public void setRazonRechazo(String razonRechazo) {
         this.razonRechazo = razonRechazo;
+    }
+
+    public String getCorreoUser() {
+        return correoUser;
+    }
+
+    public void setCorreoUser(String correoUser) {
+        this.correoUser = correoUser;
     }
 }
