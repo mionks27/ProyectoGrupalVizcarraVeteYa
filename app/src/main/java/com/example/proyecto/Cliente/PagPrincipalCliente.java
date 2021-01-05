@@ -54,8 +54,8 @@ public class PagPrincipalCliente extends AppCompatActivity {
 
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel notificationChannelDefault = new NotificationChannel(importanceDefault,"notificaciones importance DEFAULT",
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannelDefault = new NotificationChannel(importanceDefault, "notificaciones importance DEFAULT",
                     NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannelDefault.setDescription("Canal con notificaciones que hacen sonido, aparecen en notification drawer y barra de notificaciones");
             notificationManager.createNotificationChannel(notificationChannelDefault);
@@ -100,7 +100,10 @@ public class PagPrincipalCliente extends AppCompatActivity {
                                 Intent intent1 = new Intent(PagPrincipalCliente.this, SolicitudesPendienteCliente.class);
                                 startActivity(intent1);
                                 finish();
-                                return  true;
+                                return true;
+                            case R.id.verDispositivosDisponiblesCliente:
+                                
+                                return true;
                             default:
                                 return false;
 
@@ -160,17 +163,17 @@ public class PagPrincipalCliente extends AppCompatActivity {
         });
     }
 
-    public void generarNotificacion(){
+    public void generarNotificacion() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         databaseReference.child("Notificaciones/").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.getValue() != null){
-                    if(snapshot.getKey().equalsIgnoreCase(firebaseUser.getUid())){
+                if (snapshot.getValue() != null) {
+                    if (snapshot.getKey().equalsIgnoreCase(firebaseUser.getUid())) {
                         DeviceUser deviceUser = snapshot.getValue(DeviceUser.class);
-                        Log.d("infoApp", "PARAM : "+ deviceUser.getEstado());
+                        Log.d("infoApp", "PARAM : " + deviceUser.getEstado());
                         notificationImportanceDefault(deviceUser);
                     }
                 }
@@ -178,10 +181,10 @@ public class PagPrincipalCliente extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.getValue() != null){
-                    if(snapshot.getKey().equalsIgnoreCase(firebaseUser.getUid())){
+                if (snapshot.getValue() != null) {
+                    if (snapshot.getKey().equalsIgnoreCase(firebaseUser.getUid())) {
                         DeviceUser deviceUser = snapshot.getValue(DeviceUser.class);
-                        Log.d("infoApp", "PARAM : "+ deviceUser.getEstado());
+                        Log.d("infoApp", "PARAM : " + deviceUser.getEstado());
                         notificationImportanceDefault(deviceUser);
                     }
                 }
@@ -204,15 +207,15 @@ public class PagPrincipalCliente extends AppCompatActivity {
         });
     }
 
-    public void notificationImportanceDefault(DeviceUser deviceUser){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,importanceDefault);
+    public void notificationImportanceDefault(DeviceUser deviceUser) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, importanceDefault);
 
         builder.setSmallIcon(R.drawable.ic_logofinalend_background);
-        builder.setContentTitle("Su solicitud fue : "+ deviceUser.getEstado());
+        builder.setContentTitle("Su solicitud fue : " + deviceUser.getEstado());
         builder.setContentText("Solicitud sobre el dispositivo : " + deviceUser.getDevice().getTipo() + " - " + deviceUser.getDevice().getMarca());
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(3,builder.build());
+        notificationManager.notify(3, builder.build());
     }
 
 

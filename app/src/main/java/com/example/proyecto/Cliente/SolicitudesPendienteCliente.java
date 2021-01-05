@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.MainActivity;
@@ -30,6 +31,8 @@ import java.util.ArrayList;
 
 public class SolicitudesPendienteCliente extends AppCompatActivity {
 
+    TextView textViewInvisible;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +42,7 @@ public class SolicitudesPendienteCliente extends AppCompatActivity {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-
+        textViewInvisible = findViewById(R.id.textViewSoliPendienteInvisible);
         databaseReference.child("Solicitudes/").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -60,7 +63,10 @@ public class SolicitudesPendienteCliente extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(SolicitudesPendienteCliente.this));
                 }
-
+                if (deviceUserArrayList.isEmpty()) {
+                    textViewInvisible.setText("No tiene solicitudes pendientes.");
+                    textViewInvisible.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -92,13 +98,21 @@ public class SolicitudesPendienteCliente extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.historialPrestamosCliente:
-
+                                ///historial solicitudes muestra != pendiente
+                                Intent intent1 = new Intent(SolicitudesPendienteCliente.this, HistorialSolicitudes.class);
+                                startActivity(intent1);
+                                finish();
                                 return true;
                             case R.id.cerrarSesionCliente:
                                 logOut();
                                 return true;
-                            case R.id.verDispositivosDisponiblesCliente:
+                            case R.id.SolicitudesPendientes:
 
+                                return true;
+                            case R.id.verDispositivosDisponiblesCliente:
+                                Intent intent2 = new Intent(SolicitudesPendienteCliente.this, PagPrincipalCliente.class);
+                                startActivity(intent2);
+                                finish();
                                 return true;
                             default:
                                 return false;

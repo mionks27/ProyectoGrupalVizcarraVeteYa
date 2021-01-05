@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.example.proyecto.Entity.Device;
 import com.example.proyecto.Entity.DeviceUser;
@@ -27,9 +28,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class HistorialSolicitudes extends AppCompatActivity {
+    TextView textViewSoliInvisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +43,30 @@ public class HistorialSolicitudes extends AppCompatActivity {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-
+        textViewSoliInvisible = findViewById(R.id.textViewHistSoliInvisible);
         databaseReference.child("Solicitudes/").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<DeviceUser> deviceUserArrayList = new ArrayList<>();
                 for (DataSnapshot children : snapshot.getChildren()) {
-                    DeviceUser deviceUser =children.getValue(DeviceUser.class);
-                    if(deviceUser.getUidUser().equalsIgnoreCase(firebaseUser.getUid())){
-                        if(!deviceUser.getEstado().equalsIgnoreCase("Pendiente")){
+                    DeviceUser deviceUser = children.getValue(DeviceUser.class);
+                    if (deviceUser.getUidUser().equalsIgnoreCase(firebaseUser.getUid())) {
+                        if (!deviceUser.getEstado().equalsIgnoreCase("Pendiente")) {
                             deviceUserArrayList.add(deviceUser);
                         }
 
                     }
 
                 }
-                if(!deviceUserArrayList.isEmpty()){
+                if (!deviceUserArrayList.isEmpty()) {
                     HistorialAdapter adapter = new HistorialAdapter(deviceUserArrayList, HistorialSolicitudes.this);
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewHistorial);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(HistorialSolicitudes.this));
+                }
+                if(deviceUserArrayList.isEmpty()){
+                    textViewSoliInvisible.setVisibility(View.VISIBLE);
+                    textViewSoliInvisible.setText("No tiene ninguna solicitud en nuestra base de datos.");
                 }
 
             }
@@ -92,13 +100,23 @@ public class HistorialSolicitudes extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.historialPrestamosCliente:
+                                ///historial solicitudes muestra != pendiente
                                 return true;
                             case R.id.cerrarSesionCliente:
                                 logOut();
                                 return true;
+                            case R.id.SolicitudesPendientes:
+                                Intent intent1 = new Intent(HistorialSolicitudes.this, SolicitudesPendienteCliente.class);
+                                startActivity(intent1);
+                                finish();
+                                return true;
+                            case R.id.verDispositivosDisponiblesCliente:
+                                Intent intent2 = new Intent(HistorialSolicitudes.this, PagPrincipalCliente.class);
+                                startActivity(intent2);
+                                finish();
+                                return true;
                             default:
                                 return false;
-
                         }
                     }
                 });
