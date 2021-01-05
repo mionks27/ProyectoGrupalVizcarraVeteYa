@@ -12,18 +12,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.proyecto.Cliente.SolicitudesPendienteCliente;
 import com.example.proyecto.Entity.Device;
+import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.ti.EditarDispositivo;
 import com.example.proyecto.ti.PaginaPrincipalTI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -69,21 +75,47 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
             @Override
             public void onClick(View v) {
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                databaseReference.child("Dispositivos/"+device.getPk()).setValue(null)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("JULIO","BORRADO EXITOSO EN TU DATABASE");
-                                Toast.makeText(context, "Dispositivo editado exitósamente", Toast.LENGTH_SHORT).show();
+                databaseReference.child("Solicitudes/").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList<DeviceUser> deviceUserArrayList = new ArrayList<>();
+                        for (DataSnapshot children : snapshot.getChildren()) {
+                            DeviceUser deviceUser = children.getValue(DeviceUser.class);
+                            if (deviceUser.getDevice().getPk().equalsIgnoreCase(device.getPk())) {
+                                if (deviceUser.getEstado().equalsIgnoreCase("Pendiente")) {
+                                    deviceUserArrayList.add(deviceUser);
+                                }
 
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                e.printStackTrace();
-                            }
-                        });
+
+                        }
+                        if (!deviceUserArrayList.isEmpty()) {
+                            Toast.makeText(context, "Se tienen Solicitudes Pendientes", Toast.LENGTH_SHORT).show();
+                        }else{
+                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                            databaseReference.child("Dispositivos/"+device.getPk()).setValue(null)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("JULIO","BORRADO EXITOSO EN TU DATABASE");
+                                            Toast.makeText(context, "Dispositivo editado exitósamente", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
             }
         });
