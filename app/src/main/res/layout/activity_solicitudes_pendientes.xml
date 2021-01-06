@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Solicitudes Pendientes"
         android:textSize="28sp"
+        android:textStyle="bold|italic"
         android:layout_gravity="center"
         android:layout_margin="5dp"
        />
