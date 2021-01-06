@@ -1,118 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ti.RechazarSolicitud">
 
-    <ImageView
-        android:id="@+id/imageViewimagenRazon"
-        android:layout_width="152dp"
-        android:layout_height="151dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.067"
-        tools:src="@tools:sample/avatars" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewDevicerechazo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewimagenRazon"
-        app:layout_constraintStart_toStartOf="@+id/imageViewimagenRazon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.313" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewUserRechazo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textViewDevicerechazo"
-        app:layout_constraintStart_toStartOf="@+id/textViewDevicerechazo"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDevicerechazo"
-        app:layout_constraintVertical_bias="0.075" />
+            <ImageView
+                android:id="@+id/imageViewimagenRazon"
+                android:layout_width="152dp"
+                android:layout_height="151dp"
+                android:layout_gravity="center"
 
-    <TextView
-        android:id="@+id/textViewMotivoRechazo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textViewDireccionGpsRechazo"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textViewDireccionGpsRechazo"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDireccionGpsRechazo"
-        app:layout_constraintVertical_bias="0.14" />
+                android:layout_margin="20dp"
+                tools:src="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/textViewDireccionGpsRechazo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textViewDireccionUserRechazo"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textViewDireccionUserRechazo"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDireccionUserRechazo"
-        app:layout_constraintVertical_bias="0.1" />
+            <TextView
+                android:id="@+id/textViewDevicerechazo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="TextView"
+                android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textViewDireccionUserRechazo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textViewUserRechazo"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textViewUserRechazo"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUserRechazo"
-        app:layout_constraintVertical_bias="0.099" />
+            <TextView
+                android:id="@+id/textViewUserRechazo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="TextView"
+                android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textView32"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Razón:"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.735" />
+            <TextView
+                android:id="@+id/textViewMotivoRechazo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="TextView"
+                android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/editTextRazon"
-        android:layout_width="252dp"
-        android:layout_height="51dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="@+id/textView32"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView32"
-        app:layout_constraintTop_toTopOf="@+id/textView32" />
+            <TextView
+                android:id="@+id/textViewDireccionGpsRechazo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="TextView"
+                android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/button11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="confirmarRechazo"
-        android:text="Confirmar Rechazo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRazon"
-        app:layout_constraintVertical_bias="0.742" />
+            <TextView
+                android:id="@+id/textViewDireccionUserRechazo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="TextView"
+                android:textSize="18sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Razón:"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextRazon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/button11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="confirmarRechazo"
+                android:text="Confirmar Rechazo"
+                android:layout_margin="20dp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
