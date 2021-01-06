@@ -24,8 +24,8 @@
 
                 <ImageView
                     android:id="@+id/imageViewDetalleFoto"
-                    android:layout_width="226dp"
-                    android:layout_height="216dp"
+                    android:layout_width="245dp"
+                    android:layout_height="248dp"
                     android:layout_margin="13dp"
                     android:contentDescription="@string/uhmmm"
                     tools:srcCompat="@tools:sample/avatars" />
@@ -49,15 +49,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Tipo                  :" />
+                        android:text="Tipo                  :"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textViewDetalleTipo"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
 
+                        android:layout_marginLeft="5dp"
                         android:text="prueba1"
-                        android:layout_marginLeft="5dp"/>
+                        android:textSize="18sp"                       />
                 </LinearLayout>
 
                 <LinearLayout
@@ -70,14 +72,15 @@
                         android:id="@+id/textView29"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Marca               :" />
+                        android:text="Marca               :"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textViewDetalleMarca"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-
+                        android:textSize="18sp"
 
                         android:text="prueba2" />
 
@@ -93,7 +96,8 @@
                         android:id="@+id/textView30"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Característica :" />
+                        android:text="Característica :"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textViewDetalleCaracteristica"
@@ -101,7 +105,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
 
-                        android:text="irteca3" />
+                        android:text="irteca3"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -115,7 +120,8 @@
                         android:id="@+id/textView31"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Incluye              :" />
+                        android:text="Incluye              :"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textViewDetalleIncluye"
@@ -123,7 +129,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
 
-                        android:text="prueba4" />
+                        android:text="prueba4"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -136,7 +143,8 @@
                         android:id="@+id/textView33"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Stock                :" />
+                        android:text="Stock                :"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textViewDetalleStock"
@@ -144,7 +152,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
 
-                        android:text="prueba5" />
+                        android:text="prueba5"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
 
@@ -156,6 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
+                android:textSize="18sp"
                 android:onClick="irAReservar"
                 android:text="@string/reservar" />
         </LinearLayout>
