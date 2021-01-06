@@ -26,6 +26,7 @@
         android:layout_gravity="right"
         android:onClick="agregarDispositivo"
         android:text="Agregar Dispositiivo"
+        android:layout_marginRight="10dp"
          />
 
     <androidx.recyclerview.widget.RecyclerView

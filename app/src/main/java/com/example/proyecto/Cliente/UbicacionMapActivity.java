@@ -56,6 +56,7 @@ private  String nombreUsuario;
         //markerOptions.position(new LatLng(latitud, longitud));
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(latitud, longitud);
+        mMap.setTrafficEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Ubicación de "+nombreUsuario));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitud,longitud),16.0f));
