@@ -136,10 +136,7 @@ public class SolicitudReserva extends AppCompatActivity {
             }
         } else {
             Toast.makeText(SolicitudReserva.this, "Por favor active su GPS", Toast.LENGTH_SHORT).show(); //FORMATO DE UN TOAST QUE ES COMO UN POP UP
-
         }
-
-
     }
 
     @Override

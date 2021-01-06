@@ -2,6 +2,7 @@ package com.example.proyecto.Cliente;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,8 +19,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 
 import com.example.proyecto.Entity.Device;
 import com.example.proyecto.Entity.DeviceUser;
@@ -41,17 +46,95 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PagPrincipalCliente extends AppCompatActivity {
 
     Notificaciones notificaciones = new Notificaciones();
+    //String marca = entradaMarca.getText().toString();
+    String[] mm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag_principal_cliente);
-        listarDevices();
+        //listarDevices();
+        //listaDeMarcas();
+        //Log.d("infoApp", "MAAAAAAAAARCAAAAAAAAAAS " + mm.length);
 
+        //EditText entradaMarca = findViewById(R.id.editTextMarca);
+        //marca = entradaMarca.getText().toString();
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------
+        final String [] listaTipos = {"Todos","Laptop","Tableta","Celular","Monitor","Otro"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(PagPrincipalCliente.this,android.R.layout.simple_spinner_dropdown_item,listaTipos);
+        Spinner spinner = findViewById(R.id.spinner);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    Log.d("infoApp","GAAAAAAAAAAAA 0");
+                    listarDevices();
+                }else if(position == 1){
+                    Log.d("infoApp","GAAAAAAAAAAAA 1    // " + listaTipos[1]);
+                    listarDevicesPorTipo(listaTipos[1]);
+                }else if(position == 2){
+                    Log.d("infoApp","GAAAAAAAAAAAA 2    // " + listaTipos[2]);
+                    listarDevicesPorTipo(listaTipos[2]);
+                }else if(position == 3){
+                    Log.d("infoApp","GAAAAAAAAAAAA 3    // " + listaTipos[3]);
+                    listarDevicesPorTipo(listaTipos[3]);
+                }else if(position == 4){
+                    Log.d("infoApp","GAAAAAAAAAAAA 4    // " + listaTipos[4]);
+                    listarDevicesPorTipo(listaTipos[4]);
+                }else if(position == 5){
+                    Log.d("infoApp","GAAAAAAAAAAAA 4    // " + listaTipos[5]);
+                    listarDevicesPorTipo(listaTipos[5]);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        //-------------------------------------------------------------------------------------------------------------------------------------------
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------
+        /*
+        final String [] listaMarca = {"Todos","Laptop","Tableta","Celular","Monitor","Otro"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(PagPrincipalCliente.this,android.R.layout.simple_spinner_dropdown_item,listaMarca);
+        Spinner spinner = findViewById(R.id.spinner);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    Log.d("infoApp","GAAAAAAAAAAAA 0");
+                    listarDevices();
+                }else if(position == 1){
+                    Log.d("infoApp","GAAAAAAAAAAAA 1    // " + listaMarca[1]);
+                    listarDevicesPorTipo(listaMarca[1]);
+                }else if(position == 2){
+                    Log.d("infoApp","GAAAAAAAAAAAA 2    // " + listaMarca[2]);
+                    listarDevicesPorTipo(listaMarca[2]);
+                }else if(position == 3){
+                    Log.d("infoApp","GAAAAAAAAAAAA 3    // " + listaMarca[3]);
+                    listarDevicesPorTipo(listaMarca[3]);
+                }else if(position == 4){
+                    Log.d("infoApp","GAAAAAAAAAAAA 4    // " + listaMarca[4]);
+                    listarDevicesPorTipo(listaMarca[4]);
+                }else if(position == 5){
+                    Log.d("infoApp","GAAAAAAAAAAAA 4    // " + listaMarca[5]);
+                    listarDevicesPorTipo(listaMarca[5]);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });*/
+        //-------------------------------------------------------------------------------------------------------------------------------------------
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -102,11 +185,9 @@ public class PagPrincipalCliente extends AppCompatActivity {
                                 finish();
                                 return true;
                             case R.id.verDispositivosDisponiblesCliente:
-                                
                                 return true;
                             default:
                                 return false;
-
                         }
                     }
                 });
@@ -116,7 +197,7 @@ public class PagPrincipalCliente extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    //--------------------------------------------------------------------------------------------------------------------------------------
     public void logOut() {
         AuthUI instance = AuthUI.getInstance();
         instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -128,9 +209,145 @@ public class PagPrincipalCliente extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+    public String[] listaDeMarcas() {
+        final ArrayList<String> listaMarcas = new ArrayList<>();
+        //final ArrayList<String> lis = new ArrayList<>();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("Dispositivos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //ArrayList<Device> deviceArrayList = new ArrayList<>();
+                for (DataSnapshot children : snapshot.getChildren()) {
+                    Device device = children.getValue(Device.class);
+                    if (device.getStock() > 0) {
+                        listaMarcas.add(device.getMarca());
+                        Log.d("infoApp","ESTAS SON LAS MARCAS " + listaMarcas.size());
+                    } else {
+                        Log.d("infoApp", "Stock agotado del producto " + device.getTipo() + device.getMarca());
+                    }
+                }
+                String [] marquitas = new String[listaMarcas.size()];
+                for(int i = 1; i<= listaMarcas.size();i++){
+                    marquitas[i-1]=listaMarcas.get(i-1);
+                }
+                Log.d("infoApp","ESTAS SON LAS MARCAS TOTALES " + listaMarcas.size());
+                Log.d("infoApp","ESTAS SON LAS MARQUITAS " + marquitas.length);
+                mm = removeDuplicates(marquitas);
 
+                /*for(int i=1;i<=marcasFinales.length;i++){
+                    Log.d("infoApp","ESTA ES UNA MARCA " + marcasFinales[i-1]);
+                }*/
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        return mm;
     }
 
+    public void gaa(){
+        Log.d("infoApp","GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        String[] marquitas = {"a","b","c","a"};
+        Log.d("infoApp","PRIMERO MIDE ESTO : " + marquitas.length);
+        String[] aver = removeDuplicates(marquitas);
+        Log.d("infoApp","AHORA MIDE ESTO : " + aver.length);
+    }
+
+    public static String[] removeDuplicates(String[] arr) {
+        int end = arr.length;
+        for (int i = 0; i < end; i++) {
+            for (int j = i + 1; j < end; j++) {
+                if (arr[i] == arr[j]) {
+                    int shiftLeft = j;
+                    for (int k = j+1; k < end; k++, shiftLeft++) {
+                        arr[shiftLeft] = arr[k];
+                    }
+                    end--;
+                    j--;
+                }
+            }
+        }
+        String[] whitelist = new String[end];
+        for(int i = 0; i < end; i++){
+            whitelist[i] = arr[i];
+        }
+        return whitelist;
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------
+    /*
+    public void listarDevicesPorMarca(final String marca) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("Dispositivos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Device> deviceArrayList = new ArrayList<>();
+                for (DataSnapshot children : snapshot.getChildren()) {
+                    Device device = children.getValue(Device.class);
+                    if (device.getStock() > 0 && device.getTipo().equalsIgnoreCase(marca)) {
+                        deviceArrayList.add(device);
+                    } else {
+                        Log.d("infoApp", "Stock agotado del producto" + device.getTipo() + device.getMarca());
+                    }
+                }
+                if (!deviceArrayList.isEmpty()) {
+                    DevicesAdapterCliente adapter = new DevicesAdapterCliente(deviceArrayList, PagPrincipalCliente.this);
+                    RecyclerView recyclerView = findViewById(R.id.recyclerViewCliente);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(PagPrincipalCliente.this));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }*/
+    //--------------------------------------------------------------------------------------------------------------------------------------
+    public void listarDevicesPorTipo(final String tipito) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.child("Dispositivos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Device> deviceArrayList = new ArrayList<>();
+                for (DataSnapshot children : snapshot.getChildren()) {
+                    Device device = children.getValue(Device.class);
+                    if(tipito.equalsIgnoreCase("Otro")){
+                        if (device.getStock() > 0 && !device.getTipo().equalsIgnoreCase("Laptop") && !device.getTipo().equalsIgnoreCase("Tableta") && !device.getTipo().equalsIgnoreCase("Celular") && !device.getTipo().equalsIgnoreCase("Monitor")) {
+                            deviceArrayList.add(device);
+                        } else {
+                            Log.d("infoApp", "Stock agotado del producto" + device.getTipo() + device.getMarca());
+                        }
+                    }else{
+                        if (device.getStock() > 0 && device.getTipo().equalsIgnoreCase(tipito)) {
+                            deviceArrayList.add(device);
+                        } else {
+                            Log.d("infoApp", "Stock agotado del producto" + device.getTipo() + device.getMarca());
+                        }
+                    }
+                }
+                DevicesAdapterCliente adapter = new DevicesAdapterCliente(deviceArrayList, PagPrincipalCliente.this);
+                RecyclerView recyclerView = findViewById(R.id.recyclerViewCliente);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(PagPrincipalCliente.this));
+                /*
+                if (!deviceArrayList.isEmpty()) {
+                    DevicesAdapterCliente adapter = new DevicesAdapterCliente(deviceArrayList, PagPrincipalCliente.this);
+                    RecyclerView recyclerView = findViewById(R.id.recyclerViewCliente);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(PagPrincipalCliente.this));
+                }*/
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------
     public void listarDevices() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
