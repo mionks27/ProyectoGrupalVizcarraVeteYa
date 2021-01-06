@@ -73,7 +73,7 @@ public class PaginaPrincipalTI extends AppCompatActivity {
                                 finish();
                                 return true;
                             case R.id.verPedidosTI:
-                                Intent intent1 = new Intent(PaginaPrincipalTI.this, SolicitudesPendientes.class);
+                                Intent intent1 = new Intent(PaginaPrincipalTI.this, HistorialPrestamos.class);
                                 startActivity(intent1);
                                 finish();
                                 return true;

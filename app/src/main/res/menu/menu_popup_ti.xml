@@ -3,10 +3,10 @@
 
     <item
         android:id="@+id/verSolicitudPrestamoTI"
-        android:title="Ver solicitudes de préstamo" />
+        android:title="Solicitudes Pendientes" />
     <item
         android:id="@+id/verPedidosTI"
-        android:title="Visualizar pedidos de préstamo" />
+        android:title="Historial de Préstamos" />
     <item
         android:id="@+id/gestionarDispositivosTI"
         android:title="Gestionar dispositivos" />

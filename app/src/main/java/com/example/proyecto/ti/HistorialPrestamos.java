@@ -18,7 +18,7 @@ import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.RecyclerAdapters.DevicesAdapter;
-import com.example.proyecto.RecyclerAdapters.SoliPendientesAdapter;
+import com.example.proyecto.RecyclerAdapters.HistorialTiAdapter;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,14 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class SolicitudesPendientes extends AppCompatActivity {
+public class HistorialPrestamos extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_solicitudes_pendientes);
-        listarSolicitudes();
-
+        setContentView(R.layout.activity_historial_prestamos);
+        listarDevices();
     }
 
     ////para relacionar el layout de menú con esta vista
@@ -60,14 +59,14 @@ public class SolicitudesPendientes extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
-                            case R.id.verPedidosTI:
-                                Intent intent1 = new Intent(SolicitudesPendientes.this, HistorialPrestamos.class);
-                                startActivity(intent1);
+                            case R.id.verSolicitudPrestamoTI:
+                                Intent intent = new Intent(HistorialPrestamos.this, SolicitudesPendientes.class);
+                                startActivity(intent);
                                 finish();
                                 return true;
                             case R.id.gestionarDispositivosTI:
-                                Intent intent = new Intent(SolicitudesPendientes.this, PaginaPrincipalTI.class);
-                                startActivity(intent);
+                                Intent intent1 = new Intent(HistorialPrestamos.this, PaginaPrincipalTI.class);
+                                startActivity(intent1);
                                 finish();
                                 return true;
                             case R.id.cerrarSesionTI:
@@ -86,13 +85,18 @@ public class SolicitudesPendientes extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void agregarDispositivo(View view){
+        Intent intent = new Intent(HistorialPrestamos.this, AgregarDispositivo.class);
+        startActivity(intent);
+    }
+
     public void logOut(){
         AuthUI instance = AuthUI.getInstance();
         instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 // Lógica de cerrao de sesión lo pongo aquí porque luego lo ecesitaremos cuando acabemos el menú de cliente y TI
-                Intent intent = new Intent(SolicitudesPendientes.this, MainActivity.class);
+                Intent intent = new Intent(HistorialPrestamos.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -100,48 +104,48 @@ public class SolicitudesPendientes extends AppCompatActivity {
 
     }
 
-    public void listarSolicitudes(){
+
+    public void listarDevices(){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
         databaseReference.child("Solicitudes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<DeviceUser> deviceArrayList = new ArrayList<>();
+                ArrayList<DeviceUser> deviceUserArrayList = new ArrayList<>();
                 for(DataSnapshot children : snapshot.getChildren()){
-                    DeviceUser device = children.getValue(DeviceUser.class);
-                    if(device.getEstado().equalsIgnoreCase("Pendiente")){
-                        deviceArrayList.add(device);
+                    DeviceUser deviceUser = children.getValue(DeviceUser.class);
+                    if(!deviceUser.getEstado().equalsIgnoreCase("Pendiente")){
+                        deviceUserArrayList.add(deviceUser);
                     }
                 }
-                if(!deviceArrayList.isEmpty()){
-                    TextView message = findViewById(R.id.textViewMessageSoliciPendi);
+                if(!deviceUserArrayList.isEmpty()){
+                    TextView message = findViewById(R.id.textViewMessageHistorialTi);
                     if(message.getVisibility()==View.VISIBLE){
                         message.setVisibility(View.INVISIBLE);
                     }
-                    SoliPendientesAdapter adapter = new SoliPendientesAdapter(deviceArrayList,SolicitudesPendientes.this);
-                    RecyclerView recyclerView = findViewById(R.id.SoliPendRv);
+                    HistorialTiAdapter adapter = new HistorialTiAdapter(deviceUserArrayList,HistorialPrestamos.this);
+                    RecyclerView recyclerView = findViewById(R.id.recyclerViewMessageHistorialti);
                     if(recyclerView.getVisibility()==View.INVISIBLE){
                         recyclerView.setVisibility(View.VISIBLE);
                     }
                     recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(SolicitudesPendientes.this));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(HistorialPrestamos.this));
                 }else{
-                    TextView message = findViewById(R.id.textViewMessageSoliciPendi);
+                    TextView message = findViewById(R.id.textViewMessageHistorialTi);
                     message.setVisibility(View.VISIBLE);
-                    RecyclerView recyclerView = findViewById(R.id.SoliPendRv);
+                    RecyclerView recyclerView = findViewById(R.id.recyclerViewMessageHistorialti);
                     if(recyclerView.getVisibility()==View.VISIBLE){
                         recyclerView.setVisibility(View.INVISIBLE);
                     }
-
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
+
+
 
 }
