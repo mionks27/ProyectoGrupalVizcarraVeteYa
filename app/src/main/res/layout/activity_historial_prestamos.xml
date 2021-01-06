@@ -7,21 +7,20 @@
     tools:context=".ti.HistorialPrestamos"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/recyclerViewMessageHistorialti"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-         />
-
     <TextView
-        android:id="@+id/textView34"
+        android:id="@+id/textViewRazonRechazo"
         android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Historial de Préstamos"
         android:textSize="24sp"
         android:layout_gravity="center"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHistorialTi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" />
 
     <TextView
         android:id="@+id/textViewMessageHistorialTi"
@@ -32,4 +31,5 @@
         android:layout_gravity="center"
         android:visibility="invisible"
         />
+
 </LinearLayout>

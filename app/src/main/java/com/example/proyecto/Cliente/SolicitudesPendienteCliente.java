@@ -17,8 +17,11 @@ import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.RecyclerAdapters.HistorialAdapter;
+import com.example.proyecto.ti.PaginaPrincipalTI;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,13 +61,18 @@ public class SolicitudesPendienteCliente extends AppCompatActivity {
 
                 }
                 if (!deviceUserArrayList.isEmpty()) {
+                    if(textViewInvisible.getVisibility()==View.VISIBLE){
+                        textViewInvisible.setVisibility(View.INVISIBLE);
+                    }
                     HistorialAdapter adapter = new HistorialAdapter(deviceUserArrayList, SolicitudesPendienteCliente.this);
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewSoliPendiente);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(SolicitudesPendienteCliente.this));
-                }
-                if (deviceUserArrayList.isEmpty()) {
-                    textViewInvisible.setText("No tiene solicitudes pendientes.");
+                }else {
+                    RecyclerView recyclerView = findViewById(R.id.recyclerViewSoliPendiente);
+                    if(recyclerView.getVisibility()==View.VISIBLE){
+                        recyclerView.setVisibility(View.INVISIBLE);
+                    }
                     textViewInvisible.setVisibility(View.VISIBLE);
                 }
             }
@@ -127,11 +135,11 @@ public class SolicitudesPendienteCliente extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void logOut() {
+    public void logOut(){
         AuthUI instance = AuthUI.getInstance();
-        instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
+        instance.signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onComplete(@NonNull Task<Void> task) {
                 // Lógica de cerrao de sesión lo pongo aquí porque luego lo ecesitaremos cuando acabemos el menú de cliente y TI
                 Intent intent = new Intent(SolicitudesPendienteCliente.this, MainActivity.class);
                 startActivity(intent);

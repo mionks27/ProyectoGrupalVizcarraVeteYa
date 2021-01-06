@@ -46,10 +46,14 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.Devi
         StorageReference reference =
                 FirebaseStorage.getInstance().getReference().child(device.getPk() + "/" + device.getNombreFoto());
         Glide.with(contexto).load(reference).into(holder.imagen);
-        holder.textViewEstado.setText(deviceUser.getEstado());
-        holder.textViewDispositivo.setText(deviceUser.getDevice().getMarca());
-        holder.textViewMotivo.setText(deviceUser.getMotivo());
-        holder.textView28.setText(deviceUser.getEnviarCorreo());
+        holder.textViewEstado.setText("Estado: "+deviceUser.getEstado());
+        holder.textViewDispositivo.setText("Tipo: "+device.getTipo()+" - Marca: "+deviceUser.getDevice().getMarca());
+        holder.textViewMotivo.setText("Motivo: "+deviceUser.getMotivo());
+        holder.textView28.setText("Se enviará correo: "+deviceUser.getEnviarCorreo());
+        if(deviceUser.getEstado().equalsIgnoreCase("Rechazado")){
+            holder.razon.setText("Razon(Rechazo): "+deviceUser.getRazonRechazo());
+            holder.razon.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -62,6 +66,7 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.Devi
         public TextView textViewMotivo;
         public TextView textViewEstado;
         public TextView textView28;
+        public TextView razon;
         ImageView imagen;
 
         public DeviceUserViewHolder(@NonNull View itemView) {
@@ -70,6 +75,7 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.Devi
             textViewMotivo = itemView.findViewById(R.id.textViewMotivoHistorial);
             textViewEstado = itemView.findViewById(R.id.textViewEstadoHistorial);
             textView28 = itemView.findViewById(R.id.textView28);
+            razon= itemView.findViewById(R.id.textViewRazonRechazo);
             imagen=itemView.findViewById(R.id.imageViewHistorial);
         }
     }

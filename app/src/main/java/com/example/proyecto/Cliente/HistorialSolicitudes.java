@@ -18,8 +18,12 @@ import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.RecyclerAdapters.HistorialAdapter;
+import com.example.proyecto.ti.HistorialPrestamos;
+import com.example.proyecto.ti.PaginaPrincipalTI;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -54,19 +58,22 @@ public class HistorialSolicitudes extends AppCompatActivity {
                         if (!deviceUser.getEstado().equalsIgnoreCase("Pendiente")) {
                             deviceUserArrayList.add(deviceUser);
                         }
-
                     }
-
                 }
                 if (!deviceUserArrayList.isEmpty()) {
+                    if(textViewSoliInvisible.getVisibility()==View.VISIBLE){
+                        textViewSoliInvisible.setVisibility(View.INVISIBLE);
+                    }
                     HistorialAdapter adapter = new HistorialAdapter(deviceUserArrayList, HistorialSolicitudes.this);
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewHistorial);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(HistorialSolicitudes.this));
-                }
-                if(deviceUserArrayList.isEmpty()){
+                }else{
                     textViewSoliInvisible.setVisibility(View.VISIBLE);
-                    textViewSoliInvisible.setText("No tiene ninguna solicitud en nuestra base de datos.");
+                    RecyclerView recyclerView = findViewById(R.id.recyclerViewHistorial);
+                    if(recyclerView.getVisibility()==View.VISIBLE){
+                        recyclerView.setVisibility(View.INVISIBLE);
+                    }
                 }
 
             }
@@ -127,11 +134,11 @@ public class HistorialSolicitudes extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void logOut() {
+    public void logOut(){
         AuthUI instance = AuthUI.getInstance();
-        instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
+        instance.signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onComplete(@NonNull Task<Void> task) {
                 // Lógica de cerrao de sesión lo pongo aquí porque luego lo ecesitaremos cuando acabemos el menú de cliente y TI
                 Intent intent = new Intent(HistorialSolicitudes.this, MainActivity.class);
                 startActivity(intent);

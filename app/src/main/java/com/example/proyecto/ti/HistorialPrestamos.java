@@ -20,7 +20,9 @@ import com.example.proyecto.R;
 import com.example.proyecto.RecyclerAdapters.DevicesAdapter;
 import com.example.proyecto.RecyclerAdapters.HistorialTiAdapter;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -92,9 +94,9 @@ public class HistorialPrestamos extends AppCompatActivity {
 
     public void logOut(){
         AuthUI instance = AuthUI.getInstance();
-        instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
+        instance.signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onComplete(@NonNull Task<Void> task) {
                 // Lógica de cerrao de sesión lo pongo aquí porque luego lo ecesitaremos cuando acabemos el menú de cliente y TI
                 Intent intent = new Intent(HistorialPrestamos.this, MainActivity.class);
                 startActivity(intent);
@@ -124,7 +126,7 @@ public class HistorialPrestamos extends AppCompatActivity {
                         message.setVisibility(View.INVISIBLE);
                     }
                     HistorialTiAdapter adapter = new HistorialTiAdapter(deviceUserArrayList,HistorialPrestamos.this);
-                    RecyclerView recyclerView = findViewById(R.id.recyclerViewMessageHistorialti);
+                    RecyclerView recyclerView = findViewById(R.id.rvHistorialTi);
                     if(recyclerView.getVisibility()==View.INVISIBLE){
                         recyclerView.setVisibility(View.VISIBLE);
                     }
@@ -133,7 +135,7 @@ public class HistorialPrestamos extends AppCompatActivity {
                 }else{
                     TextView message = findViewById(R.id.textViewMessageHistorialTi);
                     message.setVisibility(View.VISIBLE);
-                    RecyclerView recyclerView = findViewById(R.id.recyclerViewMessageHistorialti);
+                    RecyclerView recyclerView = findViewById(R.id.rvHistorialTi);
                     if(recyclerView.getVisibility()==View.VISIBLE){
                         recyclerView.setVisibility(View.INVISIBLE);
                     }
