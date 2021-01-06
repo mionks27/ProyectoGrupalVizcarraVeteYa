@@ -23,8 +23,10 @@ import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.RecyclerAdapters.DevicesAdapter;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -100,9 +102,9 @@ public class PaginaPrincipalTI extends AppCompatActivity {
 
     public void logOut(){
         AuthUI instance = AuthUI.getInstance();
-        instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
+        instance.signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onComplete(@NonNull Task<Void> task) {
                 // Lógica de cerrao de sesión lo pongo aquí porque luego lo ecesitaremos cuando acabemos el menú de cliente y TI
                 Intent intent = new Intent(PaginaPrincipalTI.this, MainActivity.class);
                 startActivity(intent);
