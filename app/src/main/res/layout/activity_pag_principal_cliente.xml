@@ -38,12 +38,13 @@
             android:inputType="textPersonName"
             android:textSize="14sp"
             android:textStyle="italic" />
+
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="37dp"
             android:layout_height="32dp"
-            android:onClick="listarDevicesPorMarca"
-            />
+            android:foreground="@drawable/ic_search_black_24dp"
+            android:onClick="listarDevicesPorMarca" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
