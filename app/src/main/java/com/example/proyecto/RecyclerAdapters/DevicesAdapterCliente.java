@@ -47,7 +47,8 @@ public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCl
         StorageReference reference =
                 FirebaseStorage.getInstance().getReference().child(device.getPk() + "/" + device.getNombreFoto());
         Glide.with(context).load(reference).into(holder.imagen);
-        holder.tipo.setText("Tipo: " + device.getTipo() + " - Marca: " + device.getMarca());
+        holder.tipo.setText("Tipo: " + device.getTipo());
+        holder.marca.setText("Marca: " + device.getMarca());
         holder.caracteristica.setText("Características: " + device.getCaracteristica());
         holder.verdetalle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +71,13 @@ public class DevicesAdapterCliente extends RecyclerView.Adapter<DevicesAdapterCl
         TextView caracteristica;
         ImageView imagen;
         Button verdetalle;
+        TextView marca;
 
 
         public DeviceViewHolderCliente(@NonNull View itemView) {
             super(itemView);
             tipo = itemView.findViewById(R.id.textViewTipoDispCliente);
+            marca = itemView.findViewById(R.id.textViewTipoDispCliente2);
             caracteristica = itemView.findViewById(R.id.textViewmarcaDispCliente);
             imagen = itemView.findViewById(R.id.imageViewDispCliente);
             verdetalle = itemView.findViewById(R.id.buttonVerDetalleDispCliente);
