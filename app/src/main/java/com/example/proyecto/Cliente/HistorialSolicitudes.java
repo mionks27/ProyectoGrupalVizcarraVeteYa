@@ -58,19 +58,22 @@ public class HistorialSolicitudes extends AppCompatActivity {
                         if (!deviceUser.getEstado().equalsIgnoreCase("Pendiente")) {
                             deviceUserArrayList.add(deviceUser);
                         }
-
                     }
-
                 }
                 if (!deviceUserArrayList.isEmpty()) {
+                    if(textViewSoliInvisible.getVisibility()==View.VISIBLE){
+                        textViewSoliInvisible.setVisibility(View.INVISIBLE);
+                    }
                     HistorialAdapter adapter = new HistorialAdapter(deviceUserArrayList, HistorialSolicitudes.this);
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewHistorial);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(HistorialSolicitudes.this));
-                }
-                if(deviceUserArrayList.isEmpty()){
+                }else{
                     textViewSoliInvisible.setVisibility(View.VISIBLE);
-                    textViewSoliInvisible.setText("No tiene ninguna solicitud en nuestra base de datos.");
+                    RecyclerView recyclerView = findViewById(R.id.recyclerViewHistorial);
+                    if(recyclerView.getVisibility()==View.VISIBLE){
+                        recyclerView.setVisibility(View.INVISIBLE);
+                    }
                 }
 
             }

@@ -126,7 +126,7 @@ public class HistorialPrestamos extends AppCompatActivity {
                         message.setVisibility(View.INVISIBLE);
                     }
                     HistorialTiAdapter adapter = new HistorialTiAdapter(deviceUserArrayList,HistorialPrestamos.this);
-                    RecyclerView recyclerView = findViewById(R.id.recyclerViewMessageHistorialti);
+                    RecyclerView recyclerView = findViewById(R.id.rvHistorialTi);
                     if(recyclerView.getVisibility()==View.INVISIBLE){
                         recyclerView.setVisibility(View.VISIBLE);
                     }
@@ -135,7 +135,7 @@ public class HistorialPrestamos extends AppCompatActivity {
                 }else{
                     TextView message = findViewById(R.id.textViewMessageHistorialTi);
                     message.setVisibility(View.VISIBLE);
-                    RecyclerView recyclerView = findViewById(R.id.recyclerViewMessageHistorialti);
+                    RecyclerView recyclerView = findViewById(R.id.rvHistorialTi);
                     if(recyclerView.getVisibility()==View.VISIBLE){
                         recyclerView.setVisibility(View.INVISIBLE);
                     }

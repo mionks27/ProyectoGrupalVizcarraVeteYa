@@ -31,8 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="TextView"
-        android:textSize="28sp"
         android:layout_margin="10dp"
+        android:text="No se ha aprobado ni \n rechazado ninguna solicitud"
+        android:textSize="30sp"
         android:visibility="invisible" />
 </LinearLayout>

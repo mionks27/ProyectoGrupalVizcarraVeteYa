@@ -61,13 +61,18 @@ public class SolicitudesPendienteCliente extends AppCompatActivity {
 
                 }
                 if (!deviceUserArrayList.isEmpty()) {
+                    if(textViewInvisible.getVisibility()==View.VISIBLE){
+                        textViewInvisible.setVisibility(View.INVISIBLE);
+                    }
                     HistorialAdapter adapter = new HistorialAdapter(deviceUserArrayList, SolicitudesPendienteCliente.this);
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewSoliPendiente);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(SolicitudesPendienteCliente.this));
-                }
-                if (deviceUserArrayList.isEmpty()) {
-                    textViewInvisible.setText("No tiene solicitudes pendientes.");
+                }else {
+                    RecyclerView recyclerView = findViewById(R.id.recyclerViewSoliPendiente);
+                    if(recyclerView.getVisibility()==View.VISIBLE){
+                        recyclerView.setVisibility(View.INVISIBLE);
+                    }
                     textViewInvisible.setVisibility(View.VISIBLE);
                 }
             }
