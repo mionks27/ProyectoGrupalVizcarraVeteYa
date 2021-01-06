@@ -92,14 +92,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Aceptar"
-                    android:layout_gravity="bottom"/>
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="5dp"/>
 
                 <Button
                     android:id="@+id/buttonrechazarSoli"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="rechazar" />
+                    android:text="rechazar"
+                    android:layout_marginLeft="5dp"/>
             </LinearLayout>
 
         </LinearLayout>
