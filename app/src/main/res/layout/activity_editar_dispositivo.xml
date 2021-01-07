@@ -56,8 +56,8 @@
 
                 <EditText
                     android:id="@+id/editTextCaracteristicasEdit"
-                    android:layout_width="216dp"
-                    android:layout_height="31dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine" />
@@ -78,8 +78,8 @@
 
                 <EditText
                     android:id="@+id/editTextMarcaEdit"
-                    android:layout_width="209dp"
-                    android:layout_height="35dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName" />
             </LinearLayout>
@@ -99,8 +99,8 @@
 
                 <EditText
                     android:id="@+id/editTextInluyeEdit"
-                    android:layout_width="232dp"
-                    android:layout_height="39dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine" />
@@ -121,8 +121,8 @@
 
                 <EditText
                     android:id="@+id/editTextStockEdit"
-                    android:layout_width="122dp"
-                    android:layout_height="42dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="number" />
             </LinearLayout>

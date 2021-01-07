@@ -11,11 +11,10 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pagina Principal TI"
-        android:textSize="28sp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-         />
+        android:text="Gestionar Dispositivo"
+        android:textSize="28sp" />
 
     <Button
         android:id="@+id/button3"
