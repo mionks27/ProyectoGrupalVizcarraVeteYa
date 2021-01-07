@@ -220,7 +220,9 @@ public class AgregarDispositivo extends AppCompatActivity {
                                 device.setCaracteristica(editTextTextCaracteristicas.getText().toString().trim());
                                 device.setIncluye(editTextTextIncluye.getText().toString().trim());
                                 final TextView textViewFoto = findViewById(R.id.textViewFoto);
-                                device.setTipo("Otro ("+otro.getText().toString().trim()+")");
+                                if(device.getTipo().equalsIgnoreCase("Otro")){
+                                    device.setTipo("Otro ("+otro.getText().toString().trim()+")");
+                                }
                                 String mypk = databaseReference.push().getKey();
                                 device.setPk(mypk);
                                 databaseReference.child("Dispositivos/"+device.getPk()).setValue(device)
