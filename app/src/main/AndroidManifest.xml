@@ -44,7 +44,8 @@
         android:theme="@style/TemaPrincipal"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ti.HistorialPrestamos"></activity>
+        <activity android:name=".VerResumenGraficas"></activity>
+        <activity android:name=".ti.HistorialPrestamos" />
         <activity android:name=".Cliente.SolicitudesPendienteCliente" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
