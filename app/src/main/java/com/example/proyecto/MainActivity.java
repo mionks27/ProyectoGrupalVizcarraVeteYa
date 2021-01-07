@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
          validarUsuario();
     }
-
     public void login(View view){
 
         List<AuthUI.IdpConfig> prooviders = Arrays.asList(

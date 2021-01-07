@@ -40,11 +40,10 @@
             android:textStyle="italic" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/imageButtonGa"
             android:layout_width="37dp"
             android:layout_height="32dp"
-            android:foreground="@drawable/ic_search_black_24dp"
-            android:onClick="listarDevicesPorMarca" />
+            android:foreground="@drawable/ic_search_black_24dp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

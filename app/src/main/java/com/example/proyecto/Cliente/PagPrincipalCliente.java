@@ -2,13 +2,11 @@ package com.example.proyecto.Cliente;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -23,20 +21,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.proyecto.Entity.Device;
 import com.example.proyecto.Entity.DeviceUser;
 import com.example.proyecto.Entity.Notificaciones;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
-import com.example.proyecto.RecyclerAdapters.DevicesAdapter;
 import com.example.proyecto.RecyclerAdapters.DevicesAdapterCliente;
-import com.example.proyecto.ti.PaginaPrincipalTI;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,10 +45,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PagPrincipalCliente extends AppCompatActivity {
-
+    ImageButton button;
     Notificaciones notificaciones = new Notificaciones();
     //String marca = entradaMarca.getText().toString();
     String[] mm;
@@ -60,6 +56,8 @@ public class PagPrincipalCliente extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pag_principal_cliente);
+
+        button = findViewById(R.id.imageButtonGa);
         //listarDevices();
         //listaDeMarcas();
         //Log.d("infoApp", "MAAAAAAAAARCAAAAAAAAAAS " + mm.length);
@@ -79,21 +77,57 @@ public class PagPrincipalCliente extends AppCompatActivity {
                 if(position == 0){
                     Log.d("infoApp","GAAAAAAAAAAAA 0");
                     listarDevices();
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listarDevicesPorMarca();
+                        }
+                    });
                 }else if(position == 1){
                     Log.d("infoApp","GAAAAAAAAAAAA 1    // " + listaTipos[1]);
                     listarDevicesPorTipo(listaTipos[1]);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listarDevicesPorMarca();
+                        }
+                    });
                 }else if(position == 2){
                     Log.d("infoApp","GAAAAAAAAAAAA 2    // " + listaTipos[2]);
                     listarDevicesPorTipo(listaTipos[2]);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listarDevicesPorMarca();
+                        }
+                    });
                 }else if(position == 3){
                     Log.d("infoApp","GAAAAAAAAAAAA 3    // " + listaTipos[3]);
                     listarDevicesPorTipo(listaTipos[3]);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listarDevicesPorMarca();
+                        }
+                    });
                 }else if(position == 4){
                     Log.d("infoApp","GAAAAAAAAAAAA 4    // " + listaTipos[4]);
                     listarDevicesPorTipo(listaTipos[4]);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listarDevicesPorMarca();
+                        }
+                    });
                 }else if(position == 5){
                     Log.d("infoApp","GAAAAAAAAAAAA 4    // " + listaTipos[5]);
                     listarDevicesPorTipo(listaTipos[5]);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listarDevicesPorMarca();
+                        }
+                    });
                 }
             }
             @Override
@@ -280,8 +314,11 @@ public class PagPrincipalCliente extends AppCompatActivity {
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------
-    /*
-    public void listarDevicesPorMarca(final String marca) {
+
+    public void listarDevicesPorMarca() {
+        final EditText entradaMarca = findViewById(R.id.editTextMarca);
+        final String marca = entradaMarca.getText().toString().trim();
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("Dispositivos").addValueEventListener(new ValueEventListener() {
             @Override
@@ -289,7 +326,7 @@ public class PagPrincipalCliente extends AppCompatActivity {
                 ArrayList<Device> deviceArrayList = new ArrayList<>();
                 for (DataSnapshot children : snapshot.getChildren()) {
                     Device device = children.getValue(Device.class);
-                    if (device.getStock() > 0 && device.getTipo().equalsIgnoreCase(marca)) {
+                    if (device.getStock() > 0 && device.getMarca().equalsIgnoreCase(marca)) {
                         deviceArrayList.add(device);
                     } else {
                         Log.d("infoApp", "Stock agotado del producto" + device.getTipo() + device.getMarca());
@@ -300,13 +337,16 @@ public class PagPrincipalCliente extends AppCompatActivity {
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewCliente);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(PagPrincipalCliente.this));
+                }else {
+                    Toast.makeText(PagPrincipalCliente.this, "No se encontraron dispositivos con esa marca", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-    }*/
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------------------
     public void listarDevicesPorTipo(final String tipito) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
