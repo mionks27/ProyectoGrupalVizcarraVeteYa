@@ -19,6 +19,7 @@ import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.RecyclerAdapters.DevicesAdapter;
 import com.example.proyecto.RecyclerAdapters.HistorialTiAdapter;
+import com.example.proyecto.VerResumenGraficas;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -73,6 +74,10 @@ public class HistorialPrestamos extends AppCompatActivity {
                                 return true;
                             case R.id.cerrarSesionTI:
                                 logOut();
+                                return true;
+                            case R.id.graficos:
+                                Intent intent2 = new Intent(HistorialPrestamos.this, VerResumenGraficas.class);
+                                startActivity(intent2);
                                 return true;
                             default:
                                 return false;

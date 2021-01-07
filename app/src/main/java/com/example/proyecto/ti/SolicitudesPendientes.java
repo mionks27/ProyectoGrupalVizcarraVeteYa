@@ -19,6 +19,7 @@ import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.RecyclerAdapters.DevicesAdapter;
 import com.example.proyecto.RecyclerAdapters.SoliPendientesAdapter;
+import com.example.proyecto.VerResumenGraficas;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -74,6 +75,10 @@ public class SolicitudesPendientes extends AppCompatActivity {
                                 return true;
                             case R.id.cerrarSesionTI:
                                 logOut();
+                                return true;
+                            case R.id.graficos:
+                                Intent intent2 = new Intent(SolicitudesPendientes.this, VerResumenGraficas.class);
+                                startActivity(intent2);
                                 return true;
                             default:
                                 return false;

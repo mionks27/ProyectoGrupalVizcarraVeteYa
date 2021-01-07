@@ -22,6 +22,7 @@ import com.example.proyecto.Entity.Device;
 import com.example.proyecto.MainActivity;
 import com.example.proyecto.R;
 import com.example.proyecto.RecyclerAdapters.DevicesAdapter;
+import com.example.proyecto.VerResumenGraficas;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -81,6 +82,10 @@ public class PaginaPrincipalTI extends AppCompatActivity {
                                 return true;
                             case R.id.cerrarSesionTI:
                                 logOut();
+                                return true;
+                            case R.id.graficos:
+                                Intent intent2 = new Intent(PaginaPrincipalTI.this, VerResumenGraficas.class);
+                                startActivity(intent2);
                                 return true;
                             default:
                                 return false;

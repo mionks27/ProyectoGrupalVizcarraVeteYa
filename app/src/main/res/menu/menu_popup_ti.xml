@@ -2,6 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/graficos"
+        android:title="Estadística" />
+    <item
         android:id="@+id/verSolicitudPrestamoTI"
         android:title="Solicitudes Pendientes" />
     <item
