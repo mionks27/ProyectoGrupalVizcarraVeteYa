@@ -5,8 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".VerResumenGraficas">
-    <lecho.lib.hellocharts.view.PieChartView
-        android:id="@+id/chart"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="RESUMEN SISTEMA"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Bienvenido a la vista de estadísticas. Podrá visualizar la cantidad de dispositivos totales registrados en la base de datos. Están distribuidos de acuerdo al tipo de dispositivo. Por favor, use adecuadamente esta información." />
+
+                <lecho.lib.hellocharts.view.PieChartView
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 </RelativeLayout>
